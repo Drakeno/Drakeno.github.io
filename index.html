@@ -22,9 +22,12 @@
 <body>
   <div class="container">
     <div class="row">
-      <h1>Тесты Bootstrap и гридов</h1>
+      <div class="page-header">
+        <h1>Тесты Bootstrap и гридов</h1>
+      </div>
       <div class="navbar navbar-inverse">
         <div class="container">
+
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#responsive">
               <span class="sr-only">Открыть навигацию</span>
@@ -34,12 +37,14 @@
             </button>
             <a href="#" class="navbar-brand">Логотип</a>
           </div>
-          <div class="collapse navbar-collapse" id="responsive">
+
+          <nav class="collapse navbar-collapse" id="responsive">
             <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Дом</a></li>
               <li><a href="#">Ссылка 1</a></li>
               <li><a href="#">Ссылка 2</a></li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ссылка 3 <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ссылка 3 <span class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="#">Выпавший пункт 1</a></li>
                   <li class="divider"></li>
@@ -49,7 +54,8 @@
                 </ul>
               </li>
             </ul>
-          </div>
+          </nav>
+
         </div>
       </div>
     </div>
