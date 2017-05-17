@@ -5,15 +5,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Лэндинга с Grid на Bootstrap (верстка ~3 часа)</title>
+  <title>Лэндинга с Grid на Bootstrap (верстка ~6 часов)</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="css/bootstrap-custom.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 
-<body data-spy="scroll" data-target="#navbar-collapse" data-offset="0">
-  <div class="gray top-space">
-    <section class="container" id="section1">
+<body data-spy="scroll" data-target=".navbar-collapse" data-offset="90">
+  <div class="gray top-space" id="section1">
+    <div class="container">
+      <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">Адаптивный (мобайл-френдли) лэндинг <p class="small">Верстка ~6 часов</p></a>
+          </div>
+
+          <div class="navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#section1">Дом</a></li>
+              <li><a href="#section2">О нас</a></li>
+              <li><a href="#section3">Проекты</a></li>
+              <li><a href="#section4">Будь вкурсе</a></li>
+              <li><a href="#section5">Контакты</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <section class="container">
       <div class="row separate">
         <div class="col-md-6 page-left">
           <h1 class="main-title">Наша серьезная компания</h1>
@@ -22,7 +42,7 @@
         </div>
         <div class="col-md-offset-1 col-md-5">
           <div class="main-video">
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/P9bv0FGroMI" frameborder="0" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/P9bv0FGroMI" allowfullscreen></iframe>
           </div>
         </div>
       </div>
@@ -34,7 +54,7 @@
       <div class="col-md-5 page-left">
         <h2 class="add-title">Мы можем многое предоставить</h2>
         <p class="intro-text">Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et.Lorem ni ipsum dolor sit amet, consectetur adipis cing elit, ed doi eiusmod tempor incididunt ut labore et.</p>
-        <a type="button" class="btn btn-lg btn-default" href="#">Узнать больше</a>
+        <a class="btn btn-lg btn-default" href="#section4">Узнать больше</a>
       </div>
       <div class="col-md-offset-1 col-md-3">
         <ul class="features">
@@ -52,7 +72,7 @@
         <ul class="features">
           <li class="features-icon icon-pen">
             <h3 class="features-title gray-text">Авторский Дизайн</h3>
-            <p class="intro-text gray-text">Lorem ipsum dolor sitea amet, zixf conseit adipi cing elit, seddi do eiusmod btdempor in didunt utlae ore etioe.Lorem ipsum new idolor sit</p>
+            <p class="intro-text gray-text">Lorem ipsum dolor sitea amet, zixf conseit adipi cing elit, seddi do eiusmod btdempor in didunt utlae ore etioe.Lorem ipsum</p>
           </li>
           <li class="features-icon icon-car">
             <h3 class="features-title gray-text">Доставка</h3>
@@ -61,98 +81,204 @@
         </ul>
       </div>
     </div>
-  </section>
 
-  <section class="container" id="section3">
-    <div class="row separate border">
-      <div class="col-md-5 page-left">
-        <h2 class="add-title">Мы можем многое предоставить</h2>
-        <p class="intro-text">Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et.Lorem ni ipsum dolor sit amet, consectetur adipis cing elit, ed doi eiusmod tempor incididunt ut labore et.</p>
-        <a type="button" class="btn btn-lg btn-default" href="#">Узнать больше</a>
-      </div>
-      <div class="col-md-offset-1 col-md-3">
-        <ul class="features">
-          <li class="features-icon icon-gear">
-            <h3 class="features-title gray-text">Менеджемент</h3>
-            <p class="intro-text gray-text">Lorem ipsum dolor sitea amet, zixf conseit adipi cing elit, seddi do eiusmod btdempor in didunt utlae ore etioe.Lorem ipsum new idolor</p>
-          </li>
-          <li class="features-icon icon-diamond">
-            <h3 class="features-title gray-text">Брендирование</h3>
-            <p class="intro-text gray-text">Lorem ipsum dolor sitea amet, zixf conseit adipi cing elit, seddi do eiusmod btdempor in didunt utlae ore etioeew idolor sit amet,</p>
-          </li>
-        </ul>
-      </div>
-      <div class="col-md-3">
-        <ul class="features">
-          <li class="features-icon icon-pen">
-            <h3 class="features-title gray-text">Авторский Дизайн</h3>
-            <p class="intro-text gray-text">Lorem ipsum dolor sitea amet, zixf conseit adipi cing elit, seddi do eiusmod btdempor in didunt utlae ore etioe.Lorem ipsum new idolor sit</p>
-          </li>
-          <li class="features-icon icon-car">
-            <h3 class="features-title gray-text">Доставка</h3>
-            <p class="intro-text gray-text">Lorem ipsum dolor sitea amet, zixf conseit adipi cing elit, seddi do eiusmod btdempor in didunt utlae ore etioe.Lorem ipsum new idolor sit amet, consect netur.</p>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="container" id="section4">
-    <div class="row separate border">
-      <div class="col-md-5 page-left">
-        <h2 class="add-title">Мы можем многое предоставить</h2>
-        <p class="intro-text">Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et.Lorem ni ipsum dolor sit amet, consectetur adipis cing elit, ed doi eiusmod tempor incididunt ut labore et.</p>
-        <a type="button" class="btn btn-lg btn-default" href="#">Узнать больше</a>
-      </div>
-      <div class="col-md-offset-1 col-md-3">
-        <ul class="features">
-          <li class="features-icon icon-gear">
-            <h3 class="features-title gray-text">Менеджемент</h3>
-            <p class="intro-text gray-text">Lorem ipsum dolor sitea amet, zixf conseit adipi cing elit, seddi do eiusmod btdempor in didunt utlae ore etioe.Lorem ipsum new idolor</p>
-          </li>
-          <li class="features-icon icon-diamond">
-            <h3 class="features-title gray-text">Брендирование</h3>
-            <p class="intro-text gray-text">Lorem ipsum dolor sitea amet, zixf conseit adipi cing elit, seddi do eiusmod btdempor in didunt utlae ore etioeew idolor sit amet,</p>
-          </li>
-        </ul>
-      </div>
-      <div class="col-md-3">
-        <ul class="features">
-          <li class="features-icon icon-pen">
-            <h3 class="features-title gray-text">Авторский Дизайн</h3>
-            <p class="intro-text gray-text">Lorem ipsum dolor sitea amet, zixf conseit adipi cing elit, seddi do eiusmod btdempor in didunt utlae ore etioe.Lorem ipsum new idolor sit</p>
-          </li>
-          <li class="features-icon icon-car">
-            <h3 class="features-title gray-text">Доставка</h3>
-            <p class="intro-text gray-text">Lorem ipsum dolor sitea amet, zixf conseit adipi cing elit, seddi do eiusmod btdempor in didunt utlae ore etioe.Lorem ipsum new idolor sit amet, consect netur.</p>
-          </li>
-        </ul>
-      </div>
-    </div>
   </section>
 
   <section class="container">
-
-  </section>
-
-  <div class="container">
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header col-md-3">
-          <a class="navbar-brand" href="#">Адаптивный (мобайл-френдли) лэндинг <p class="small">Верстка ~3 часа</p></a>
-        </div>
-
-        <div class="navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#section1">Дом</a></li>
-            <li><a href="#section2">Проекты</a></li>
-            <li><a href="#section3">О нас</a></li>
-            <li><a href="#section4">Контакты</a></li>
+    <div class="row separate">
+      <h2 class="add-title center-text" id="section3">Наша продукция</h2>
+      <p class="intro-text gray-text center-text red-bar-center">Lorem ipsum dolor sit amet, consectetur adipis cing elit,sed do eiusmod tempor incididunt ut labore et.</p>
+      <div class="row">
+        <div class="tabs">
+          <ul class="nav nav-tabs center-block">
+            <li class="active"><a href="#tab-1" data-toggle="tab">Все</a></li>
+            <li><a href="#tab-2" data-toggle="tab">Шаблолоны печати</a></li>
+            <li><a href="#tab-3" data-toggle="tab">Веб макеты</a></li>
+            <li><a href="#tab-4" data-toggle="tab">Интерфейсы</a></li>
           </ul>
+          <div class="tab-content">
+            <div class="tab-pane active fade in" id="tab-1">
+
+              <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                  <img src="img/the-darling-hover-tiny-700x700.jpg" alt="asda">
+                </a>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                  <img src="img/le-farfalle-cover-700x700.jpg" alt="asda">
+                </a>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                  <img src="img/industry-standard-cover-alt-new-700x700.jpg" alt="asda">
+                </a>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                  <img src="img/hobes-cover-700x700.jpg" alt="asda">
+                </a>
+              </div>
+
+              <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                  <img src="img/le-farfalle-07-700x700.jpg" alt="asda">
+                </a>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                  <img src="img/industry-standard-cover-new-1-700x700.jpg" alt="asda">
+                </a>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                  <img src="img/le-farfalle-hover-700x700.jpg" alt="asda">
+                </a>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                  <img src="img/hobes-hover-700x700.jpg" alt="asda">
+                </a>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="tab-2">
+              <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                  <img src="img/hobes-hover-700x700.jpg" alt="asda">
+                </a>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                  <img src="img/le-farfalle-hover-700x700.jpg" alt="asda">
+                </a>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                  <img src="img/print1.jpg" alt="asda">
+                </a>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                  <img src="img/the-darling-hover-tiny-700x700.jpg" alt="asda">
+                </a>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="tab-3">
+              <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                  <img src="img/web1.jpg" alt="asda">
+                </a>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                  <img src="img/web1.jpg" alt="asda">
+                </a>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                  <img src="img/web1.jpg" alt="asda">
+                </a>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                  <img src="img/web1.jpg" alt="asda">
+                </a>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="tab-4">
+              <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                  <img src="img/user1.jpg" alt="asda">
+                </a>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                  <img src="img/user1.jpg" alt="asda">
+                </a>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                  <img src="img/user1.jpg" alt="asda">
+                </a>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                  <img src="img/user1.jpg" alt="asda">
+                </a>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
-    </nav>
-  </div>
+    </div>
+  </section>
+
+  <section class="subscribe-bg" id="section4">
+    <div class="subscribe container">
+      <h4 class="subscribe-title">Все самое важное за один клик</h4>
+      <p class="subscribe-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, ducimus.</p>
+      <form class="form-signin">
+        <div class="clearfix">
+          <div class="col-md-offset-2 col-md-5">
+            <label for="inputField" class="sr-only">Email адрес</label>
+            <input type="email" class="form-control subscribe-input" placeholder="Ваша почта..." value="">
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-lg btn-danger" type="submit">Отправить</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="separate" id="section5">
+    <div class="container">
+      <div class="row">
+        <form class="final-feedback">
+
+          <div class="col-md-7">
+            <h2 class="add-title">Будем на связи</h2>
+            <p class="intro-text gray-text red-bar-left">Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et. ectetur adig ipis cing elit, sed do eiusmod tempor incididunt. ectetur adig ipis cing elit, sed do eiusmod tempor incididunt.</p>
+            <div class="row">
+              <div class="col-md-6"><input type="text" class="form-control feedback-input" placeholder="Ваше имя" value=""></div>
+              <div class="col-md-6"><input type="email" class="form-control feedback-input" placeholder="Ваша почта" value=""></div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <textarea class="form-control feedback-input" rows="5" name="feedback-message" placeholder="Напишите что-нибудь"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-offset-1 col-md-4">
+            <div class="contacts">
+              <p class="contacts-title">Контактные данные</p>
+              <p class="contacts-text">г. Казань, ул. Кремлевсякая, д. 1</p>
+              <p class="contacts-text">vladislavkoj@gmail.com</p>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-copyright pull-left">© Все права защищены (нет), 2017</p>
+      <div class="footer-social pull-right">
+        <a class="social-btn twitter" href="#">Твиттер</a>
+        <a class="social-btn instagram" href="#">Инстаграм</a>
+        <a class="social-btn facebook" href="#">Фейсбук</a>
+        <a class="social-btn vkontakte" href="#">Вконтакте</a>
+      </div>
+    </div>
+  </footer>
+
 
   <div class="modal modal-md fade" id="order-window">
     <div class="modal-dialog">
@@ -161,11 +287,11 @@
         <div class="modal-body">
           <form class="form-signin">
             <h3 class="form-signin-heading">Мы рады новым встречам</h3>
-            <label for="inputField" class="sr-only">Email address</label>
+            <label for="inputField" class="sr-only">Введите Email адрес</label>
 
             <div class="input-group input-group-lg">
-              <span class="input-group-addon" id="sizing-addon1">@</span>
-              <input type="text" id="inputField" class="form-control" placeholder="Ваша почта" aria-describedby="sizing-addon1">
+              <span class="input-group-addon">@</span>
+              <input type="email" id="inputField" class="form-control" placeholder="Ваша почта" value="">
             </div>
 
             <div class="checkbox">
@@ -187,7 +313,16 @@
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="js/bootstrap.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script>
+    var offset = 80;
+
+    $('.navbar li a').click(function(event) {
+      event.preventDefault();
+      $($(this).attr('href'))[0].scrollIntoView();
+      scrollBy(0, -offset);
+    });
+  </script>
 </body>
 
 </html>
