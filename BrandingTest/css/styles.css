@@ -1,0 +1,117 @@
+.gray {
+  background: #f6f2f2;
+}
+
+.top-space {
+  margin-top: 90px;
+}
+
+.wrapper {
+  margin-left: 18px;
+  margin-right: 18px;
+}
+
+.main-video {
+  height: 306px;
+  max-width: 100%;
+}
+
+.intro-text {
+  margin-bottom: 40px;
+  font-size: 16px;
+  line-height: 28px;
+  color: #000;
+}
+
+.gray-text {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.page-left {
+  margin-bottom: 50px;
+}
+
+.main-title {
+  color: #000;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.add-title {
+  color: rgba(0, 0, 0, 0.8);
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.features-icon {
+  padding-top: 72px;
+  position: relative;
+}
+
+.features-icon::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: -1px;
+  width: 41px;
+  height: 41px;
+  background: url("../img/icon-sprite.png") no-repeat;
+}
+
+.icon-gear::before {
+  background-position: -4px -6px;
+}
+
+.icon-diamond::before {
+  background-position: -63px -5px;
+}
+
+.icon-pen::before {
+  background-position: -122px -6px;
+}
+
+.icon-car::before {
+  background-position: -4px -64px;
+}
+
+.border {
+  border-bottom: 2px solid #ececec;
+}
+
+@media (min-width: 768px) {
+  .main-title {
+    font-size: 60px;
+    line-height: 72px;
+    margin-bottom: 20px;
+  }
+
+  .add-title {
+    font-size: 42px;
+    line-height: 55px;
+  }
+
+  .separate {
+    margin-top: 50px;
+    margin-bottom: 110px;
+  }
+  .main-video {
+    margin-top: 35px;
+    -webkit-box-shadow: 0px -14px 74px 0px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0px -14px 74px 0px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px -14px 74px 0px rgba(0, 0, 0, 0.4);
+  }
+
+  .features-title {
+    font-size: 24px;
+  }
+}
+
+.form-signin-heading {
+  margin: 20px;
+}
