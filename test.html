@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Тест Lptsystem Фон</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/carousel.css">
+  <link rel="stylesheet" type="text/css" href="css/test.css">
+
+
+</head>
+
+<body>
+
+  <div id="fullpage">
+    <section class="section head-block" id="section0">
+      <div class="container">
+        <div class="col-md-12">
+          <h1 class="main-title">РАЗРАБОТКА <b>КОРПОРАТИВНОГО САЙТА</b> ДЛЯ ЖИЛИЩНОЙ <b>ГРУППЫ КОМПАНИЙ “ФОН”</b></h1>
+          <p>This example will turn to normal scroll when the window size gets smaller than 900px width</p>
+        </div>
+      </div>
+    </section>
+    <div class="section" id="section1">
+      <div class="slide" id="slide1">
+        <div class="intro">
+          <h1>Ideal for small screens</h1>
+        </div>
+      </div>
+
+      <div class="slide" id="slide2">
+        <h1>This example uses responsiveWidth: 900</h1>
+      </div>
+
+    </div>
+    <div class="section" id="section2">
+      <div class="intro">
+        <h1>Keep it simple!</h1>
+      </div>
+    </div>
+    <div class="section" id="section3">
+      <div class="intro">
+        <h1>Keep it simple!</h1>
+      </div>
+    </div>
+    <div class="section" id="section4">
+      <div class="intro">
+        <h1>Keep it simple!</h1>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.fullPage.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#fullpage').fullpage({
+        anchors: ['firstPage', 'secondPage', '3rdPage'],
+        navigation: true,
+        navigationPosition: 'right',
+        navigationTooltips: ['First page', 'Second page', 'Third and last page'],
+        responsiveWidth: 900,
+        afterResponsive: function(isResponsive) {
+
+        }
+
+      });
+    });
+  </script>
+</body>
+
+</html>
