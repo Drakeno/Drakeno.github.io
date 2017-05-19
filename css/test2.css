@@ -35,7 +35,7 @@ body {
 
 .details-title {
   margin-top: 107px;
-    margin-bottom: 33px;
+  margin-bottom: 33px;
 }
 
 .gray-gradient-head {
@@ -83,7 +83,7 @@ body {
 }
 
 .big-gradient-content-1 {
-      padding-top: 57px;
+  padding-top: 57px;
   background: linear-gradient(to bottom, #ffffff, #eeefee);
   border-radius: 20px 20px 0 0;
   padding-bottom: 262px;
@@ -119,8 +119,8 @@ body {
 
 .main-task-list {
   margin-top: 97px;
-margin-bottom: 81px;
-margin-left: -22px;
+  margin-bottom: 81px;
+  margin-left: -22px;
 }
 
 .main-task {
@@ -275,7 +275,7 @@ margin-left: -22px;
   .maint-title-field {
     padding-left: 19%;
     padding-right: 19%;
-        margin-top: 433px;
+    margin-top: 433px;
   }
   .section-title {
     font-size: 72px;
@@ -291,7 +291,8 @@ margin-left: -22px;
   .gray-gradient-content {
     padding-top: 74px;
     box-shadow: 0 0 59px rgba(0, 0, 0, 0.67);
-        padding-bottom: 66px;
+    padding-bottom: 66px;
+    margin-bottom: 65px;
   }
   .big-gradient-content-1 {
     margin-top: 63px;
@@ -313,7 +314,6 @@ margin-left: -22px;
   }
   .projects-bg {
     background: url("../img/img_town.png") no-repeat bottom, linear-gradient(to bottom, #236bbd, #2066b2);
-    background-size: cover, auto;
   }
   .blue-bg-end {
     background: url("../img/img_town.png") no-repeat bottom, linear-gradient(to bottom, #1e5fa6, #15447a);
@@ -346,7 +346,7 @@ margin-left: -22px;
     text-align: center;
   }
   .flash-folder {
-        margin-top: 41px;
+    margin-top: 41px;
     width: 70%;
     box-shadow: 0 0 27px rgba(0, 0, 0, 0.16);
   }
@@ -694,7 +694,7 @@ html.fp-enabled, .fp-enabled body {
 
 @media (min-width: 1200px) {
   .container {
-        width: 1139px;
+    width: 1139px;
   }
   .color-demo-1, .color-demo-2, .color-demo-3 {
     font-size: 67px;
