@@ -1,5 +1,4 @@
-/* Добрый день, Динара! Макет сверстал. Правда в CSS по идее нельзя задать внутренние тени у текста и градиенты...
-Но выкрутился и применил парочку трюков.
+/* Все, готово! Макет сверстал.
 
 P.S. На свой вкус добавил JS скрипты на прокрутку и iPad тоже оживил.
 Вот версия без привязки скролла если нужна: */
@@ -33,14 +32,14 @@ body {
   color: #134174;
 }
 
-.section {
-  height: 100vh;
-}
-
 .section-title {
   font-weight: bold;
   text-transform: uppercase;
   text-align: center;
+}
+
+.details-title {
+  margin: 50px 0;
 }
 
 .gray-gradient-head {
@@ -52,8 +51,19 @@ body {
 }
 
 .projects-bg {
-  background: url("../img/img_town.png") no-repeat center, linear-gradient(to top, #2065b2, #226bbd);
+  background: linear-gradient(to top, #2065b2, #226bbd);
   background-size: cover, auto;
+}
+
+.blue-bg-top {
+  background: linear-gradient(to top, #1e5fa6, #1c579b);
+}
+
+.bricks-bg {
+  background: url("../img/img_background_brick.png") no-repeat center;
+  background-size: cover;
+  padding: 100px 66px;
+  padding-top: 50px;
 }
 
 .gray-gradient-head {
@@ -66,6 +76,12 @@ body {
   padding: 10px;
   background: linear-gradient(to bottom, #ffffff, #d5d5d5);
   border-radius: 0 0 20px 20px;
+}
+
+.big-gradient-content-1 {
+  margin-top: 70px;
+  background: linear-gradient(to bottom, #ffffff, #eeefee);
+  border-radius: 20px 20px 0 0;
 }
 
 .main-task-list {
@@ -108,6 +124,23 @@ body {
   padding: 97px 0;
 }
 
+.details {
+  margin: 0 8%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.detail-item {
+  margin: 15px 5px;
+}
+
+.flash-folder {
+  padding: 36px 42px;
+  border-radius: 15px;
+  background: linear-gradient(to bottom, rbga(255,255,255,1), rbga(255,255,254,0.0));
+}
+
 @media (min-width: 768px) {
   .nowrap {
     padding: 0;
@@ -138,6 +171,18 @@ body {
     padding-top: 40px;
     box-shadow: 0 0 59px rgba(0, 0, 0, 0.67);
   }
+
+  .big-gradient-content-1 {
+    background: url("../img/ipad-bg.png") no-repeat left bottom,
+    linear-gradient(to bottom, #ffffff, #eeefee);
+  }
+  .bricks-bg {
+    box-shadow: inset 0 0 128px 0 #000;
+  }
+  .projects-bg {
+    background: url("../img/img_town.png") no-repeat center, linear-gradient(to top, #2065b2, #226bbd);
+    background-size: cover, auto;
+  }
   .main-task {
     min-height: 100px;
     font-size: 30px;
@@ -164,6 +209,10 @@ body {
     max-height: 533px;
     background: url("../img/img_screenshoot.jpg") 50% no-repeat;
     text-align: center;
+  }
+
+  .flash-folder {
+    width: 70%;
   }
 }
 
@@ -228,9 +277,9 @@ html.fp-enabled, .fp-enabled body {
 }
 
 .fp-tableCell {
-  display: table-cell;
   width: 100%;
   height: 100%;
+  display: table-cell;
 }
 
 .fp-slidesContainer {
@@ -456,5 +505,8 @@ html.fp-enabled, .fp-enabled body {
 @media (min-width: 1200px) {
   .container {
     width: 1141px;
+  }
+  .section {
+    height: 100vh;
   }
 }
