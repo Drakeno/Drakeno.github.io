@@ -16,7 +16,7 @@ body {
 
 .main-logo {
   text-align: center;
-  margin-bottom: 88px;
+  margin-bottom: 76px;
 }
 
 .main-title {
@@ -34,7 +34,8 @@ body {
 }
 
 .details-title {
-  margin: 50px 0;
+  margin-top: 107px;
+    margin-bottom: 33px;
 }
 
 .gray-gradient-head {
@@ -117,8 +118,9 @@ body {
 }
 
 .main-task-list {
-  margin-top: 105px;
-  margin-bottom: 135px;
+  margin-top: 97px;
+margin-bottom: 81px;
+margin-left: -22px;
 }
 
 .main-task {
@@ -136,7 +138,7 @@ body {
   line-height: 24px;
   color: #2674cb;
   text-align: center;
-  margin: 70px 90px;
+  margin: 70px 70px;
   margin-top: 50px;
 }
 
@@ -157,7 +159,8 @@ body {
 }
 
 .details {
-  margin: 0 8%;
+  margin: 0 7%;
+  margin-bottom: -39px;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -267,12 +270,12 @@ body {
     background: url("../img/white_field.png") 50% no-repeat, url("../img/img_kazan.jpg") 50% no-repeat;
     -webkit-background-size: auto, cover;
     background-size: auto, cover;
+    height: 1080px;
   }
   .maint-title-field {
     padding-left: 19%;
     padding-right: 19%;
-    padding-top: 136px;
-    margin-top: 271px;
+        margin-top: 433px;
   }
   .section-title {
     font-size: 72px;
@@ -282,12 +285,13 @@ body {
     text-shadow: 5px 5px 4px #def, 0 0 0 #000, 5px 5px 4px #def;
   }
   .gray-gradient-head {
-    padding: 103px 0;
+    padding: 82px 0;
     box-shadow: 0 0 59px rgba(0, 0, 0, 0.67);
   }
   .gray-gradient-content {
-    padding-top: 40px;
+    padding-top: 74px;
     box-shadow: 0 0 59px rgba(0, 0, 0, 0.67);
+        padding-bottom: 66px;
   }
   .big-gradient-content-1 {
     padding-top: 90px;
@@ -318,7 +322,7 @@ body {
     min-height: 100px;
     font-size: 30px;
     line-height: 34px;
-    margin-bottom: 65px;
+    margin-bottom: 55px;
   }
   .main-task-number {
     padding: 26px 0;
@@ -689,10 +693,7 @@ html.fp-enabled, .fp-enabled body {
 
 @media (min-width: 1200px) {
   .container {
-    width: 1141px;
-  }
-  .section {
-    min-height: 100vh;
+        width: 1139px;
   }
   .color-demo-1, .color-demo-2, .color-demo-3 {
     font-size: 67px;
