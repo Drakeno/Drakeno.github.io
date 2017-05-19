@@ -18,29 +18,73 @@
   <div id="fullpage">
     <section class="section head-block" id="section0">
       <div class="container">
-        <div class="col-md-12">
-          <h1 class="main-title">РАЗРАБОТКА <b>КОРПОРАТИВНОГО САЙТА</b> ДЛЯ ЖИЛИЩНОЙ <b>ГРУППЫ КОМПАНИЙ “ФОН”</b></h1>
-          <p>This example will turn to normal scroll when the window size gets smaller than 900px width</p>
+        <div class="col-md-12 maint-title-field">
+          <div class="main-logo"><img src="img/logo.png" alt="Логотип Фон"></div>
+          <h1 class="main-title">РАЗРАБОТКА <b>КОРПОРАТИВНОГО САЙТА</b><br> ДЛЯ ЖИЛИЩНОЙ <b>ГРУППЫ КОМПАНИЙ “ФОН”</b></h1>
         </div>
       </div>
     </section>
-    <div class="section" id="section1">
-      <div class="slide" id="slide1">
-        <div class="intro">
-          <h1>Ideal for small screens</h1>
+
+    <section class="section main-tasks-bg" id="section1">
+      <div class="container nowrap">
+        <div class="row">
+          <div class="col-md-12 gray-gradient-head">
+            <h2 class="section-title">Основные задачи</h2>
+          </div>
+        </div>
+        <div class="row main-task-list">
+          <div class="row">
+            <div class="visible-lg-block  col-md-2">
+              <p class="main-task-number">01</p>
+            </div>
+            <div class="col-md-10">
+              <p class="main-task">разработать <b>информативный сайт</b> для жилищной группы компаний “фон” в лучших традициях <b>корпоративного стиля</b></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="visible-lg-block  col-md-2">
+              <p class="main-task-number">02</p>
+            </div>
+            <div class="col-md-10">
+              <p class="main-task">отразить самые <b>выгодные стороны компании</b> в <b>структурированном портфолио</b> проектов</b>
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="visible-lg-block  col-md-2">
+              <p class="main-task-number">03</p>
+            </div>
+            <div class="col-md-10">
+              <p class="main-task">разработать <b>удобную для администрирования новостную ленту</b> с быстрым и легким способом добавления статей</b>
+              </p>
+            </div>
+          </div>
+    </section>
+
+    <section class="section projects-bg" id="section2">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 gray-gradient-content">
+            <h2 class="section-title">Проекты</h2>
+            <p class="projects-promo">Мы тщательно отбирали весь контент и структурировали его по соответствующим разделам, так у нас получилась качественная фотогалерея портфолио проектов, разработанная логически понятной, удобной в ориентировании и навигации</p>
+            <div class="demo-projects">
+              <div class="ipad">
+                <div class="slide" id="slide1">
+                  <img src="img/img_all_pics_inside.jpg" alt="Screen1">
+                </div>
+                <div class="slide active" id="slide2">
+                  <img src="img/img_all_pics_inside.jpg" alt="Screen1">
+                </div>
+                <div class="slide" id="slide3">
+                  <img src="img/img_all_pics_inside.jpg" alt="Screen1">
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="slide" id="slide2">
-        <h1>This example uses responsiveWidth: 900</h1>
-      </div>
-
-    </div>
-    <div class="section" id="section2">
-      <div class="intro">
-        <h1>Keep it simple!</h1>
-      </div>
-    </div>
     <div class="section" id="section3">
       <div class="intro">
         <h1>Keep it simple!</h1>
@@ -51,26 +95,23 @@
         <h1>Keep it simple!</h1>
       </div>
     </div>
-  </div>
+    <div class="section" id="section5">
+      <div class="intro">
+        <h1>Keep it simple!</h1>
+      </div>
+    </div>
+    <div class="section" id="section6">
+      <div class="intro">
+        <h1>Keep it simple!</h1>
+      </div>
+    </div>
+    </div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.fullPage.min.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $('#fullpage').fullpage({
-        anchors: ['firstPage', 'secondPage', '3rdPage'],
-        navigation: true,
-        navigationPosition: 'right',
-        navigationTooltips: ['First page', 'Second page', 'Third and last page'],
-        responsiveWidth: 900,
-        afterResponsive: function(isResponsive) {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.fullPage.min.js"></script>
+    <script src="js/test.js"></script>
 
-        }
-
-      });
-    });
-  </script>
 </body>
 
 </html>
