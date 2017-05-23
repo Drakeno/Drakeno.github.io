@@ -419,7 +419,7 @@ body {
     float: left;
     width: 33%;
     padding: 20px;
-    margin-right: 26px;
+    margin-right: 25px;
     text-align: center;
   }
   .support-info img {
@@ -709,24 +709,7 @@ html.fp-enabled, .fp-enabled body {
     text-align: center;
     margin-left: 62px;
   }
-  .fp-controlArrow.fp-prev, .fp-controlArrow.fp-next {
-    top: 191px;
-    width: 115px;
-    height: 230px;
-    border: none;
-    opacity: 0.8;
-  }
-  .fp-controlArrow.fp-prev {
-    left: -121px;
-    background: url(../img/img_arrow_left_active.png);
-  }
-  .fp-controlArrow.fp-next {
-    right: -121px;
-    background: url(../img/img_arrow_right_active.png);
-  }
-  .fp-controlArrow.fp-next:hover, .fp-controlArrow.fp-next:active, .fp-controlArrow.fp-prev:hover, .fp-controlArrow.fp-prev:active {
-    opacity: 1;
-  }
+
 }
 
 @media (min-width: 1200px) {
@@ -737,4 +720,147 @@ html.fp-enabled, .fp-enabled body {
     font-size: 67px;
     line-height: 53px;
   }
+}
+
+
+/* image replacement */
+
+#prevBtn, #nextBtn, #slider1prev, #slider1next {
+  margin: 0;
+  padding: 0;
+  display: block;
+  overflow: hidden;
+  text-indent: -8000px;
+}
+
+
+/* // image replacement */
+
+#container {
+  margin: 0 auto;
+  position: relative;
+  text-align: left;
+  width: 696px;
+  margin-bottom: 2em;
+}
+
+#contents {
+  position: relative;
+}
+
+
+/* Easy Slider */
+
+#slider ul, #slider li, #slider2 ul, #slider2 li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#slider2 {
+  margin-top: 1em;
+}
+
+#slider li, #slider2 li {
+  /*
+            define width and height of list item (slide)
+            entire slider area will adjust according to the parameters provided here
+        */
+  width: 453px;
+  height: 341px;
+  overflow: hidden;
+}
+
+#prevBtn, #nextBtn, #slider1next, #slider1prev {
+  display: block;
+  width: 115px;
+  height: 230px;
+  position: absolute;
+  right: -121px;
+  top: 144px;
+  z-index: 100;
+}
+
+#nextBtn, #slider1next {
+  right: -121px;
+}
+
+#prevBtn a, #nextBtn a, #slider1next a, #slider1prev a {
+  display: block;
+  position: relative;
+  width: 115px;
+  height: 230px;
+  background: url(../img/img_arrow_left_active.png) no-repeat 0 0;
+  opacity: 0.8;
+}
+
+#prevBtn a:hover, #nextBtn a:hover, #slider1next a:hover, #slider1prev a:hover {
+  opacity: 1;
+}
+
+#nextBtn a, #slider1next a {
+  background: url(../img/img_arrow_right_active.png) no-repeat 0 0;
+}
+
+
+.fp-controlArrow.fp-prev, .fp-controlArrow.fp-next {
+  top: 191px;
+  width: 115px;
+  height: 230px;
+  border: none;
+  opacity: 0.8;
+}
+
+.fp-controlArrow.fp-next:hover, .fp-controlArrow.fp-next:active, .fp-controlArrow.fp-prev:hover, .fp-controlArrow.fp-prev:active {
+  opacity: 1;
+}
+
+
+
+/* numeric controls */
+
+ol#controls {
+  margin: 1em 0;
+  padding: 0;
+  height: 28px;
+}
+
+ol#controls li {
+  margin: 0 10px 0 0;
+  padding: 0;
+  float: left;
+  list-style: none;
+  height: 28px;
+  line-height: 28px;
+}
+
+ol#controls li a {
+  float: left;
+  height: 28px;
+  line-height: 28px;
+  border: 1px solid #ccc;
+  background: #DAF3F8;
+  color: #555;
+  padding: 0 10px;
+  text-decoration: none;
+}
+
+ol#controls li.current a {
+  background: #5DC9E1;
+  color: #fff;
+}
+
+ol#controls li a:focus, #prevBtn a:focus, #nextBtn a:focus {
+  outline: none;
+}
+
+.ipad-bg {
+  position: relative;
+  background: url("../img/img_screenshoot.jpg") 50% no-repeat;
+}
+
+.ipad-border {
+  margin: 0 auto;
+  background: url("../img/ipad.png") 50% no-repeat;
+
 }

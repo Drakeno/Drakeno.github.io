@@ -65,11 +65,26 @@
           <div class="col-md-12 gray-gradient-content">
             <h2 class="section-title">Проекты</h2>
             <p class="projects-promo">Мы тщательно отбирали весь контент и структурировали его по соответствующим разделам, так у нас получилась качественная фотогалерея портфолио проектов, разработанная логически понятной, удобной в ориентировании и навигации</p>
-            <div class="demo-projects">
+            <!--<div class="demo-projects">
               <div class="ipad">
                 <div class="slide" id="slide2">
                   <img src="img/img_all_pics_inside.jpg" alt="Screen1">
                 </div>
+              </div>
+            </div>-->
+            <div class="ipad-bg" id="content">
+              <div class="ipad-border" id="slider">
+                <ul>
+                  <li>
+                    <img src="img/img_all_pics_inside.jpg" alt="Screen1">
+                  </li>
+                  <li>
+                    <img src="img/img_all_pics_inside.jpg" alt="Screen1">
+                  </li>
+                  <li>
+                    <img src="img/img_all_pics_inside.jpg" alt="Screen1">
+                  </li>
+                  </ul>
               </div>
             </div>
           </div>
@@ -224,6 +239,15 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/easySlider1.7.js"></script>
+    <script>
+    $(document).ready(function(){
+            $("#slider").easySlider({
+                auto: true,
+                continuous: true
+            });
+        });
+    </script>
 </body>
 
 </html>
