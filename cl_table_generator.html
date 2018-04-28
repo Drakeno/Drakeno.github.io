@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Создатель таблицы для Базы CL</title>
+        <link rel="shortcut icon" href="https://drakeno.github.io/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script
+            src="https://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+        crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <style>
+            .game-setup label:hover {
+                cursor: pointer;
+                background: #efefef;
+            }
+        </style>
+        <div class="container">
+            <div class="page-header">
+                <h1>Генератор таблицы для Базы Игр коопеланда</h1>
+            </div>
+
+            <div class="text-center">
+
+                <!--                <button class="btn btn-lg btn-success" id="xml-downl">Загрузить XML</button>
+                                <button class="btn btn-lg btn-success" id="table-names">Загрузить Названия игр</button>
+                                <button class="btn btn-lg btn-success" id="compare">Сравнить</button>-->
+            </div>
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" id="rookOrNotRook"> Это раководство (не опесание)
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="gameLink">Ссылка</label>
+                <input type="text" class="form-control" id="gameLink" placeholder="Url">
+                <button class="btn btn-sm btn-primary" id="url-findout" disabled>Попробовоть узнать все по ссылке</button>
+            </div>
+            <div class="form-group">
+                <label for="gameName">Название игры</label>
+                <input type="text" class="form-control" id="gameName" placeholder="Название">
+            </div>
+            <div class="form-group">
+                <label for="gameDate">Дата выпуска</label>
+                <input type="text" class="form-control" id="gameDate" placeholder="Дата">
+            </div>
+
+            <div class="row game-setup highlight">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label style="padding: 10px;"><input type="checkbox" id="coop-check"> Кооператив</label>
+                        <input type="number" class="form-control" id="gameCoop" placeholder="Цифра">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label style="padding: 10px;"><input type="checkbox" id="mult-check"> Мультиплеер</label>
+                        <input type="number" class="form-control" id="gameMulti" placeholder="Цифра">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label style="padding: 10px;"><input type="checkbox" id="lan-check"> LAN</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label style="padding: 10px;"><input type="checkbox" id="mult-check"> Рейтенг на metacritic.com </label><a class="btn btn-xs btn-info" id="rate-findout">Найти</a>
+                        <input type="number" class="form-control" id="gameRate" placeholder="Цифра">
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="text-center">
+                <button class="btn btn-lg btn-success" id="generate">Сгенерировать</button>
+            </div>
+            <hr>
+
+            <div class="well well-lg container">
+                <b>Результат:</b>
+                <!--                <pre><code class="language-html generated_code" data-lang="html">&lt;tr&gt;
+                &lt;td&gt;[url=//coop-land.ru/allgames/rpg/9944-grim-dawn.html]Grim Dawn[/url]&lt;/td&gt;
+                &lt;td&gt;2016/02/25&lt;/td&gt;
+                &lt;td&gt;RPG&lt;/td&gt;
+                &lt;td&gt;&#10003;&lt;/td&gt;
+                &lt;td&gt;4&lt;/td&gt;
+                &lt;td&gt;&#10008;&lt;/td&gt;
+                &lt;td&gt;0&lt;/td&gt;
+                &lt;td&gt;&#10003;&lt;/td&gt;
+                &lt;td&gt;84&lt;/td&gt;
+                &lt;/tr&gt;</code></pre>-->
+                <pre><code class="language-html generated_code" data-lang="html">&lt;tr&gt;
+&lt;td&gt;[url=//coop-land.ru/allgames/rpg/9944-grim-dawn.html]Grim Dawn[/url]&lt;/td&gt;
+&lt;td&gt;2016/02/25&lt;/td&gt;
+&lt;td&gt;RPG&lt;/td&gt;
+&lt;td&gt;&#10003;&lt;/td&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;&#10008;&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;&#10003;&lt;/td&gt;
+&lt;td&gt;84&lt;/td&gt;
+&lt;/tr&gt;</code></pre>
+
+
+                <li>Максимальное количество игроков в мультиплеере: 120.</li>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                $('#gameLink').on('input', function () {
+                    if ($(this).val() != '' && $(this).val().match('coop-land')) {
+                        $('#url-findout').attr('disabled', false);
+                    } else {
+                        $('#url-findout').attr('disabled', true);
+                    }
+                });
+
+                $('#url-findout').on('click', function () {
+                    checkLink(this);
+                });
+
+            });
+
+
+            function checkLink(obj) {
+                $(obj).text('Загрузка...');
+                var checkUrl = $('#gameLink').val();
+                $.ajax({url: checkUrl, dataType: 'html', success: function (response) {
+                        alert('Ураа');
+                    }});
+            };
+
+
+        </script>
+    </body>
+</html>
