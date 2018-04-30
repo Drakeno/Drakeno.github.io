@@ -16,6 +16,20 @@
                 cursor: pointer;
                 background: #efefef;
             }
+
+            .succeed {
+                border-color: #009900;
+                background-color: rgba(0,255,0,.1);
+            }
+
+            .failed {
+                border-color: red;
+                background-color: rgba(255,0,0,.1);
+            }
+
+            #gameDate {
+                max-width: 300px;
+            }
         </style>
         <div class="container">
             <div class="page-header">
@@ -38,48 +52,63 @@
                 <label for="gameLink">Ссылка</label>
                 <input type="text" class="form-control" id="gameLink" placeholder="Url">
                 <button class="btn btn-sm btn-primary" id="url-findout" disabled>Попробовоть узнать все по ссылке</button>
+                <p style="display: none;" id="resultText"></p>
+                <p style="display: none;" id="resultCont"></p>
             </div>
+
             <div class="form-group">
                 <label for="gameName">Название игры</label>
                 <input type="text" class="form-control" id="gameName" placeholder="Название">
             </div>
-            <div class="form-group">
-                <label for="gameDate">Дата выпуска</label>
-                <input type="text" class="form-control" id="gameDate" placeholder="Дата">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="gameDate">Дата выпуска</label>
+                        <input type="date" class="form-control" id="gameDate" placeholder="Дата">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="gameGenre">Жанр</label>
+                        <select class="form-control" id="gameGenre"><option value=""></option><option value="Action">Action</option><option value="Arcade">Arcade</option><option value="Logic">Logic</option><option value="RPG">RPG</option><option value="Racing">Racing</option><option value="Shooter">Shooter</option><option value="Simulator">Simulator</option><option value="Sport">Sport</option><option value="Strategy">Strategy</option></select>
+                    </div>
+                </div>
             </div>
-
-            <div class="row game-setup highlight">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label style="padding: 10px;"><input type="checkbox" id="coop-check"> Кооператив</label>
-                        <input type="number" class="form-control" id="gameCoop" placeholder="Цифра">
+            <div class="possible-to-generate">
+                <div class="row game-setup highlight">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label style="padding: 10px;"><input class="dynamicCheck" type="checkbox" id="coop-check"> Кооператив</label>
+                            <input type="number" class="form-control dynamicInput" id="gameCoop" placeholder="Цифра">
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label style="padding: 10px;"><input type="checkbox" id="mult-check"> Мультиплеер</label>
-                        <input type="number" class="form-control" id="gameMulti" placeholder="Цифра">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label style="padding: 10px;"><input class="dynamicCheck" type="checkbox" id="mult-check"> Мультиплеер</label>
+                            <input type="number" class="form-control dynamicInput" id="gameMulti" placeholder="Цифра">
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label style="padding: 10px;"><input type="checkbox" id="lan-check"> LAN</label>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label style="padding: 10px;"><input type="checkbox" id="lan-check"> LAN</label>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label style="padding: 10px;"><input type="checkbox" id="mult-check"> Рейтенг на metacritic.com </label><a class="btn btn-xs btn-info" id="rate-findout">Найти</a>
-                        <input type="number" class="form-control" id="gameRate" placeholder="Цифра">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label style="padding: 10px;"><input class="dynamicCheck" type="checkbox" id="rating-check"> Рейтенг на metacritic.com </label><a target="_blank" class="btn btn-xs btn-info" id="rate-findout">Найти</a>
+                            <input type="number" class="form-control dynamicInput" id="gameRate" placeholder="Цифра">
+                        </div>
                     </div>
                 </div>
             </div>
             <br>
             <div class="text-center">
-                <button class="btn btn-lg btn-success" id="generate">Сгенерировать</button>
+                <button class="btn btn-lg btn-success" id="generate">Сгенерировать код</button>
+                <p id="gen-result"></p>
             </div>
             <hr>
 
-            <div class="well well-lg container">
+            <div class="well-lg container">
                 <b>Результат:</b>
                 <!--                <pre><code class="language-html generated_code" data-lang="html">&lt;tr&gt;
                 &lt;td&gt;[url=//coop-land.ru/allgames/rpg/9944-grim-dawn.html]Grim Dawn[/url]&lt;/td&gt;
@@ -92,47 +121,289 @@
                 &lt;td&gt;&#10003;&lt;/td&gt;
                 &lt;td&gt;84&lt;/td&gt;
                 &lt;/tr&gt;</code></pre>-->
-                <pre><code class="language-html generated_code" data-lang="html">&lt;tr&gt;
-&lt;td&gt;[url=//coop-land.ru/allgames/rpg/9944-grim-dawn.html]Grim Dawn[/url]&lt;/td&gt;
-&lt;td&gt;2016/02/25&lt;/td&gt;
-&lt;td&gt;RPG&lt;/td&gt;
-&lt;td&gt;&#10003;&lt;/td&gt;
-&lt;td&gt;4&lt;/td&gt;
-&lt;td&gt;&#10008;&lt;/td&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;&#10003;&lt;/td&gt;
-&lt;td&gt;84&lt;/td&gt;
-&lt;/tr&gt;</code></pre>
-
-
-                <li>Максимальное количество игроков в мультиплеере: 120.</li>
+                <pre><code class="language-html generated_code" data-lang="html"></code></pre>
             </div>
         </div>
 
         <script>
             $(document).ready(function () {
-                $('#gameLink').on('input', function () {
-                    if ($(this).val() != '' && $(this).val().match('coop-land')) {
-                        $('#url-findout').attr('disabled', false);
-                    } else {
-                        $('#url-findout').attr('disabled', true);
-                    }
-                });
+              $('#gameLink').on('input', function () {
+                if ($(this).val() != '' && $(this).val().match('coop-land')) {
+                  $('#url-findout').attr('disabled', false);
+                } else {
+                  $('#url-findout').attr('disabled', true);
+                }
+              });
 
-                $('#url-findout').on('click', function () {
-                    checkLink(this);
-                });
+              $('#gameName').on('input', function () {
+                $('#rate-findout').attr('href', 'http://www.metacritic.com/search/all/' + $(this).val() + '/results?sort=score');
+              });
+
+
+              $('#url-findout').on('click', function () {
+                checkLink(this);
+              });
+
+              $('.dynamicCheck').on('change', function () {
+                if ($(this).prop('checked') === true) {
+                  $(this).parent('label').siblings('.dynamicInput').attr('disabled', false);
+                } else {
+                  $(this).parent('label').siblings('.dynamicInput').attr('disabled', true);
+                }
+              });
+
+              $('#generate').on('click', function () {
+                //Проверка на ложное нажатие
+//                var error;
+//                $('.possible-to-generate input:not(.dynamicCheck').each(function () {
+//                  if ($(this).val() === '' && $(this).attr('disabled') !== 'disabled') {
+//                    $(this).addClass('failed');
+//                  } else {
+//                    $(this).removeClass('failed').addClass('succeed');
+//                  }
+//                });
+//
+//                var count = 0;
+//                $('.possible-to-generate .dynamicCheck').each(function () {
+//                  if ($(this).prop('checked') === false) {
+//                    count = count + 1;
+//                  }
+//                });
+//
+//                if ($('.possible-to-generate .dynamicCheck').length === count) {
+//                  $('.possible-to-generate .dynamicCheck').each(function () {
+//                    $(this).parent('label').removeClass('succeed').addClass('failed');
+//                    $(this).parent('label').siblings('input').removeClass('succeed').addClass('failed');
+//                  });
+//                } else {
+//                  $('.possible-to-generate .dynamicCheck').each(function () {
+//                    $(this).parent('label').removeClass('failed').addClass('succeed');
+//                    $(this).parent('label').siblings('input').removeClass('failed').addClass('succeed');
+//                  });
+//                }
+//
+//                $('.possible-to-generate input').each(function () {
+//                  if ($(this).hasClass('failed')) {
+//                    $('#gen-result').text('Все поля сначала заполни!');
+//                    error = 1;
+//                  }
+//                });
+
+                if ($('#gameName').val() === '') {
+                  $('#gen-result').text('Имя забыл!');
+                  return;
+                }
+
+                if ($('#gamedate').val() === '') {
+                  $('#gen-result').text('Дату забыл!');
+                  return;
+                }
+
+                if ($('#gameGenre').val() === '') {
+                  $('#gen-result').text('Жанр забыл!');
+                  return;
+                }
+
+                var gameLink = $('#gameLink').val();
+                gameLink = gameLink.replace("https://", "//");
+
+                var gameName = $('#gameName').val();
+                var gameDate = $('#gameDate').val();
+                gameDate = gameDate.replace('-', '/');
+                gameDate = gameDate.replace('/-', '/');
+                gameDate = gameDate.replace('/\-', '/');
+                var genre = $('#gameGenre').val();
+
+
+                if ($('#coop-check').attr('checked') === 'checked') {
+                  var coopBin = '&#10003;';
+                } else {
+                  var coopBin = '&#10008;';
+                }
+
+                if ($('#gameCoop').val() !== '') {
+                  var coopNum = $('#gameCoop').val();
+                } else {
+                  var coopNum = 0;
+                }
+
+                if ($('#mult-check').attr('checked') === 'checked') {
+                  var multiBin = '&#10003;';
+                } else {
+                  var multiBin = '&#10008;';
+                }
+
+                if ($('#gameMulti').val() !== '') {
+                  var multiNum = $('#gameMulti').val();
+                } else {
+                  var multiNum = 0;
+                }
+
+                if ($('#lan-check').attr('checked') === 'checked') {
+                  var lanCheck = '&#10003;';
+                } else {
+                  var lanCheck = '&#10008;';
+                }
+
+                if ($('#gameRate').val() !== '') {
+                  var gameRate = $('#gameRate').val();
+                } else {
+                  var gameRate = '--';
+                }
+
+                $('.generated_code').append('&lt;tr&gt;\n');
+                $('.generated_code').append('&lt;td&gt;[url=' + gameLink + ']' + gameName + '[/url]&lt;/td&gt;\n');
+                $('.generated_code').append('&lt;td&gt;' + gameDate + '&lt;/td&gt;\n');
+                $('.generated_code').append('&lt;td&gt;' + genre + '&lt;/td&gt;\n');
+                $('.generated_code').append('&lt;td&gt;' + coopBin + '&lt;/td&gt;\n');
+                $('.generated_code').append('&lt;td&gt;' + coopNum + '&lt;/td&gt;\n');
+                $('.generated_code').append('&lt;td&gt;' + multiBin + '&lt;/td&gt;\n');
+                $('.generated_code').append('&lt;td&gt;' + multiNum + '&lt;/td&gt;\n');
+                $('.generated_code').append('&lt;td&gt;' + lanCheck + '&lt;/td&gt;\n');
+                $('.generated_code').append('&lt;td&gt;' + gameRate + '&lt;/td&gt;\n');
+                $('.generated_code').append('&lt;/tr&gt;\n');
+
+                $('#gen-result').text('Успешно!');
+
+              });
+
 
             });
 
-
+            function removeBtnColors(obj) {
+              $(obj).removeClass('btn-primary');
+              $(obj).removeClass('btn-success');
+              $(obj).removeClass('btn-danger');
+            }
             function checkLink(obj) {
-                $(obj).text('Загрузка...');
-                var checkUrl = $('#gameLink').val();
+              $(obj).text('Загрузка...');
+              removeBtnColors(obj);
+              var checkUrl = $('#gameLink').val();
+
+              if (checkUrl.match('allgames')) {
                 $.ajax({url: checkUrl, dataType: 'html', success: function (response) {
-                        alert('Ураа');
-                    }});
-            };
+                    $(obj).removeClass('btn-primary').addClass('btn-success');
+                    $(obj).text('Описание');
+
+                    $('#resultText').text('Из описания удалось узнать:');
+                    $('#resultText').fadeIn();
+                    $('#rookOrNotRook').prop('checked', false);
+
+                    $('.possible-to-generate input, .possible-to-generate label').each(function () {
+                      $(this).addClass('failed');
+                    });
+
+                    var gameName = $(response).find('h1').text();
+                    var fullstoryText = $(response).find('.full-story-content').html().toString();
+
+                    var gamDateArr = fullstoryText.split('Дата выпуска:');
+                    var gameData = gamDateArr[1].split(' ', 5);
+
+                    var gamGenreArr = fullstoryText.split('Жанр:');
+                    var gameGenre = gamGenreArr[1].split(' ', 10);
+
+                    var gameCoopInfo1 = $(response).find('.coop1').text();
+                    var gameMultiInfo1 = $(response).find('.multi1').text();
+                    var gameRating = $(response).find('.meta').text();
+
+
+                    if (gameCoopInfo1 !== '') {
+                      $('#coop-check').attr('checked', 'checked');
+                      $('#coop-check').parent('label').removeClass('failed').addClass('succeed');
+                      $('#coop-check').removeClass('failed').addClass('succeed');
+                      var coopNumText = gameCoopInfo1.replace("КООПЕРАТИВ", "");
+                      coopNumText = coopNumText.replace(":", "");
+                      coopNumText = coopNumText.replace(" ", "");
+                      $('#gameCoop').attr('disabled', false);
+                      $('#gameCoop').val(coopNumText);
+                      $('#gameCoop').removeClass('failed').addClass('succeed');
+                    } else {
+                      $('#coop-check').attr('checked', false);
+                      $('#coop-check').parent('label').removeClass('failed').addClass('succeed');
+                    }
+
+                    if (gameMultiInfo1 !== '') {
+                      $('#mult-check').attr('checked', 'checked');
+                      $('#mult-check').removeClass('failed').addClass('succeed');
+                      $('#mult-check').parent('label').removeClass('failed').addClass('succeed');
+                      var multNumText = gameMultiInfo1.replace("МУЛЬТИПЛЕЕР", "");
+                      multNumText = multNumText.replace(":", "");
+                      multNumText = multNumText.replace(" ", "");
+                      $('#gameMulti').attr('disabled', false);
+                      $('#gameMulti').val(multNumText);
+                      $('#gameMulti').removeClass('failed').addClass('succeed');
+                    } else {
+                      $('#mult-check').attr('checked', false);
+                      $('#gameMulti').removeClass('failed').addClass('succeed');
+                      $('#mult-check').parent('label').removeClass('failed').addClass('succeed');
+                    }
+
+                    if (gameRating !== '' && gameRating !== '--') {
+                      $('#rating-check').prop('checked', 'checked');
+                      $('#rating-check').removeClass('failed').addClass('succeed');
+                      $('#rating-check').parent('label').removeClass('failed').addClass('succeed');
+                      gameRating = gameRating.replace(" ", "");
+                      $('#gameRate').attr('disabled', false);
+                      $('#gameRate').val(gameRating);
+                      $('#gameRate').removeClass('failed').addClass('succeed');
+                    } else {
+                      $('#rate-findout').attr('checked', false);
+                      $('#gameRate').removeClass('failed').addClass('succeed');
+                      $('#rating-check').parent('label').removeClass('failed').addClass('succeed');
+                    }
+
+                    //LAN Todo
+                    $('#lan-check').parent('label').removeClass('failed').addClass('succeed');
+
+                    $('#resultCont').fadeIn();
+                    $('#resultCont').html('<b>Дата выпуска:</b> ' + gameData);
+                    $('#resultCont').append('Жанр: ' + gameGenre);
+                    $('#gameName').val(gameName).removeClass('failed').addClass('succeed');
+                    $('#rate-findout').attr('href', 'http://www.metacritic.com/search/all/' + gameName + '/results?sort=score');
+                    $('#gameName').prev('label').removeClass('failed').addClass('succeed');
+                  }});
+              } else if (checkUrl.match('rookovodstva')) {
+                $.ajax({url: checkUrl, dataType: 'html', success: function (response) {
+                    removeBtnColors(obj);
+                    $(obj).addClass('btn-success');
+                    $(obj).text('Руководство');
+                    $('#resultText').text('Из руководства удалось узнать:');
+                    $('#resultText').fadeIn();
+                    $('#rookOrNotRook').attr('checked', 'checked');
+
+                    var titleText = $(response).find('h1').text();
+                    var fullstoryText = $(response).find('.full-story-content').html().toString();
+
+                    var gameName = titleText.replace('Руководство запуска', '');
+                    gameName = gameName.replace(':', '');
+                    gameName = gameName.replace('по сети', '');
+                    gameName = gameName.replace(' ', '');
+
+                    var rukDateArr = fullstoryText.split('выпуска');
+                    var gameData = rukDateArr[1].split(' ', 5);
+                    var rukPlayersArr = fullstoryText.split('количество игроков');
+                    if (rukPlayersArr[1] !== undefined) {
+                      var gamePlayers = rukPlayersArr[1].split(' ', 8);
+                    } else {
+                      var gamePlayers = 'Не указано';
+                    }
+
+
+                    $('#resultCont').fadeIn();
+                    $('#resultCont').html('<b>Дата выпуска:</b> ' + gameData + '<br><b>Кол-во игроков:</b>' + gamePlayers);
+                    var helpBtnTExt = '<p>Не густо, в общем. <a class="btn btn-sm btn-info" target="_blank" href="https://store.steampowered.com/search/?term=' + gameName + '">Найти игру в Steam</a></p>';
+                    $(helpBtnTExt).insertAfter($('#resultCont'));
+
+                    $('#gameName').val(gameName).addClass('succeed');
+                    $('#gameName').addClass('succeed');
+                  }});
+              } else {
+                $(obj).addClass('btn-danger');
+                $(obj).text('Ерундовая ссылка');
+                $('#resultText').text('В ссылку засунули фигню');
+              }
+            }
+            ;
 
 
         </script>

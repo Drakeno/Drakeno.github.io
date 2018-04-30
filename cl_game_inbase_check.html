@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Проверка наличия игр в Базе</title>
+        <link rel="shortcut icon" href="https://drakeno.github.io/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script
+            src="https://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+        crossorigin="anonymous"></script>
+        <style>
+            .btn {
+                margin: 2px;
+            }
+
+            #working {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.6);
+                display: flex;
+                z-index: 100;
+                overflow: hidden;
+            }
+
+            .working-label {
+                border: 16px solid #f3f3f3; /* Light grey */
+                border-top: 16px solid #4e9966; /* Blue */
+                border-radius: 50%;
+                width: 120px;
+                height: 120px;
+                animation: spin 2s linear infinite;
+                margin: auto;
+
+            }
+
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="working" style="display: none;">
+            <div class="working-label"></div>
+        </div>
+        <div class="container">
+            <div class="page-header">
+                <h1>Проверка наличия последних игр в базе</h1>
+            </div>
+            <div id="total-id-input" class="id-form center-block" style="max-width: 300px;margin-bottom: 30px;display: none;">
+                Скопированный ID: <input class="form-control" id="id-poly" type="text">
+            </div>
+        </div>
+        <div class="text-center" style="margin-bottom: 30px;">
+            <button class="btn main-btn btn-lg btn-success page-check" data-href="https://coop-land.ru/allgames/">Проверка первой страницы</button>
+            <button class="btn main-btn btn-lg btn-success page-check" data-href="https://coop-land.ru/allgames/page/2/">Второй</button>
+            <button class="btn main-btn btn-lg btn-success page-check" data-href="https://coop-land.ru/allgames/page/3/">Третьей</button>
+            <button class="btn main-btn btn-lg btn-success page-check" data-href="https://coop-land.ru/allgames/page/4/">Четвертой</button>
+            <button class="btn main-btn btn-lg btn-success page-check" data-href="https://coop-land.ru/allgames/page/5/">Пятой</button>
+            <button class="btn main-btn btn-lg btn-success page-check" data-href="https://coop-land.ru/allgames/page/6/">Шестой</button>
+            <button class="btn main-btn btn-lg btn-info" id="table-names" style="display: none;">Games on CL</button>
+            <br>
+            <button class="btn main-btn btn-lg btn-primary" id="checkAll" style="display: none;">Проверить все</button>
+            <button class="btn main-btn btn-lg btn-danger" id="reload">Сбросить</button>
+        </div>
+        <div class="container-fluid">
+            <div class="container cont total-data table-striped"></div>
+            <div class="row result-row">
+                <div class="col-md-6">
+                    <h2 id="cat-data-label"></h2>
+                    <div class="well cont xml-data"></div>
+                </div>
+                <div class="col-md-6">
+                    <h2 id="cl-data-label"></h2>
+                    <div class="cont game-data"></div>
+                    <div class="well cont game-data-new">Здесь выгрузятся игры из базы</div>
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            $(document).ready(function () {
+              $('.page-check').click(function () {
+                $('#working').fadeIn();
+                var checkUrl = $(this).attr('data-href');
+                $(this).hide();
+
+                $.ajax({url: checkUrl, dataType: 'html', success: function (response) {
+
+                    var checkedTitle = $(response).find('h2.title>a');
+
+                    checkedTitle.each(function (i, elem) {
+                      var gameName = $(this).text();
+                      var gameLink = $(this).attr('href');
+                      $('.cont.xml-data').append('<div><a class="gameBaseName" href="' + gameLink + '">' + gameName + '</a><button class="btn btn-info btn-check-this" onclick="checkLink(this)">Проверить</button></div><br>');
+                    });
+                  }});
+
+                $('#table-names').show();
+                $('#working').fadeOut('fast');
+                $('#sb-code').hide();
+              });
+
+              $('#table-names').click(function () {
+                $('#working').fadeIn();
+                $.ajax({url: 'https://coop-land.ru//uploads/gamebase.txt', dataType: 'json', success: function (response) {
+                    $.each(response.data, function (index, value) {
+                      var fullLnk = value.toString();
+                      $('.cont.game-data').append('<div class="game-name">' + fullLnk + '</div><br/>');
+                    });
+                    $('.cont.game-data-new').html('');
+                    $('.game-name a').each(function (index, value) {
+                      var gameName = $(this).text();
+                      var gameLink = $(this).attr('href');
+                      $('.cont.game-data-new').append('<div class="game-name-new"><a href=' + gameLink + '>' + gameName + '</a></div>');
+                      $('.cont.game-data').html('');
+                    });
+                    $('#working').fadeOut('fast');
+                  }});
+                $('#checkCompare').show();
+                $('#checkAll').show();
+              });
+
+              $('#reload').click(function () {
+                location.reload();
+              });
+
+              $('#checkAll').click(function () {
+                $('#working').fadeIn();
+                $('.cont.xml-data .btn-check-this').each(function (i, elem) {
+                  checkLink($(this));
+                });
+                $('#working').fadeOut('fast');
+              });
+            });
+
+            function checkLink(obj) {
+              $(obj).text('Загрузка...');
+              removeBtnColors(obj);
+              $(obj).addClass('btn-warning');
+              var checkGameName = $(obj).prev('.gameBaseName').text().replace(/\r|\n/g, '');
+
+              $('.cont.game-data-new .game-name-new a').each(function () {
+                var chousenHameBase = $(this).text();
+                console.log(chousenHameBase);
+                console.log(checkGameName);
+                if (chousenHameBase.match(checkGameName)) {
+                  removeBtnColors(obj);
+                  $(obj).addClass('btn-success');
+                  $(obj).text('Игра уже есть в базе');
+                }
+              });
+
+              if ($(obj).text() !== 'Игра уже есть в базе') {
+                removeBtnColors(obj);
+                $(obj).addClass('btn-danger');
+                $(obj).text('Игры в базе нету, работай над этим');
+              }
+            }
+
+            function removeBtnColors(obj) {
+              $(obj).removeClass('btn-primary');
+              $(obj).removeClass('btn-success');
+              $(obj).removeClass('btn-danger');
+              $(obj).removeClass('btn-warning');
+              $(obj).removeClass('btn-info');
+            }
+        </script>
+    </body>
+</html>

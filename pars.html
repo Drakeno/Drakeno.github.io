@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Проверка игр в магазине</title>
+         <link rel="shortcut icon" href="https://drakeno.github.io/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script
+            src="https://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+        crossorigin="anonymous"></script>
+        <style>
+            .btn {
+                margin: 2px;
+            }
+
+            #working {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.6);
+                display: flex;
+                z-index: 100;
+                overflow: hidden;
+            }
+
+            .working-label {
+                border: 16px solid #f3f3f3; /* Light grey */
+                border-top: 16px solid #4e9966; /* Blue */
+                border-radius: 50%;
+                width: 120px;
+                height: 120px;
+                animation: spin 2s linear infinite;
+                margin: auto;
+
+            }
+
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="working" style="display: none;">
+            <div class="working-label"></div>
+        </div>
+        <div class="container">
+            <blockquote>
+                <h2>Помни!</h2>
+                <div id="gs-code">
+                    <p>Импорт good-steam:</p>
+                    <textarea name="" id="" cols="50" rows="2">&lt;span id="gs_import" data-gid="2324825"&gt;&lt;/span&gt;
+http://good-steam.ru/agent.php?id=230765&idd=2149344</textarea>
+                </div>
+                <div id="sb-code">
+                    <p>Импорт steambuy:</p>
+                    <textarea name="" id="" cols="50" rows="2">&lt;span id="sb_import" data-gid="2324825"&gt;&lt;/span&gt;</textarea>
+                </div>
+            </blockquote>
+
+            <div id="total-id-input" class="id-form center-block" style="max-width: 300px;margin-bottom: 30px;display: none;">
+                Скопированный ID: <input class="form-control" id="id-poly" type="text">
+            </div>
+        </div>
+        <div class="text-center" style="margin-bottom: 30px;">
+            <button class="btn main-btn btn-lg btn-success" id="xml-downl">XML GS</button>
+            <button class="btn main-btn btn-lg btn-success" id="xml-downl-sb">XML SB</button>
+            <button class="btn main-btn btn-lg btn-info" id="table-names" style="display: none;">Games on CL</button>
+            <button class="btn main-btn btn-lg btn-primary" id="compare" style="display: none;">Compare</button>
+            <button class="btn main-btn btn-lg btn-danger" id="reload">Сбросить</button>
+            <button class="btn main-btn btn-lg btn-primary" id="checkAll" style="display: none;">Проверить все</button>
+            <button class="btn main-btn btn-lg btn-success" id="removeAdd" style="display: none;">Удалить нормальные</button>
+            <button class="btn main-btn btn-lg btn-warning" id="removeStubborn" style="display: none;">Удалить спорные</button>
+        </div>
+        <div class="container-fluid">
+            <div class="container cont total-data table-striped"></div>
+            <div class="row result-row">
+                <div class="col-md-6">
+                    <h2 id="cat-data-label"></h2>
+                    <div class="well cont xml-data">Здесь выгрузятся данные из магазина</div>
+                </div>
+                <div class="col-md-6">
+                    <h2 id="cl-data-label"></h2>
+                    <div class="cont game-data"></div>
+                    <div class="well cont game-data-new">Здесь выгрузятся игры из базы</div>
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            $(document).ready(function () {
+              $('#xml-downl').click(function () {
+                $('#working').fadeIn();
+                $.post('https://good-steam.ru/xml/?request=products', {}, function (xml) {
+                  $('.cont.xml-data').html('');
+                  $(xml).find('row').each(function (i, elem) {
+                    var xmlGameName = $(this).find('name_goods').text();
+                    var xmlGameId = $(this).find('id_goods').text();
+                    $('.cont.xml-data').append('<div class="catalog-name">' + xmlGameName + '</div>' + '<span class="id-code">' + xmlGameId + '</span>');
+                    $('#cat-data-label').text('Игр в магазине: ' + i);
+                  });
+                }, 'xml');
+                $('button.main-btn').hide();
+                $('#table-names').show();
+                $('#working').fadeOut('fast');
+                $('#sb-code').hide();
+              });
+
+              $('#xml-downl-sb').click(function () {
+                $('#working').fadeIn();
+
+                $.post('http://steammachine.ru/api/goodslist/?v=1&format=xml', {}, function (xml) {
+                  $('.cont.xml-data').html('');
+                  $(xml).find('goods').each(function (i, elem) {
+                    var xmlGameName = $(this).find('name').text();
+                    var xmlGameId = $(this).find('id_good').text();
+                    $('.cont.xml-data').append('<div class="catalog-name">' + xmlGameName + '</div>' + '<span class="id-code">&nbsp;<b>' + xmlGameId + '</b></span>');
+                    $('#cat-data-label').text('Игр в магазине: ' + i);
+                  });
+                  $('#working').fadeOut('fast');
+                }, 'xml');
+                $('button.main-btn').hide();
+                $('#table-names').show();
+                $('#gs-code').hide();
+              });
+
+              $('#table-names').click(function () {
+                $('#working').fadeIn();
+                $.ajax({url: 'http://coop-land.ru//uploads/gamebase.txt', dataType: 'json', success: function (response) {
+                    $.each(response.data, function (index, value) {
+                      var fullLnk = value.toString();
+                      $('.cont.game-data').append('<div class="game-name">' + fullLnk + '</div><br/>');
+                    });
+                    $('.cont.game-data-new').html('');
+                    $('.game-name a').each(function (index, value) {
+                      var gameName = $(this).text();
+                      var gameLink = $(this).attr('href');
+                      $('.cont.game-data-new').append('<div class="game-name-new"><a href=' + gameLink + '>' + gameName + '</a></div>');
+                      $('.cont.game-data').html('');
+                      $('#cl-data-label').text('Игр в базе на сайте: ' + index);
+                    });
+                    $('#working').fadeOut('fast');
+                  }});
+                $('button.main-btn').hide();
+                $('#compare').show();
+              });
+
+              $('#compare').click(function () {
+                $('#working').fadeIn();
+                $('.cont.total-data').append('<h2>Совпадения:</h2>');
+
+                var names1 = $('.cont.xml-data .catalog-name');
+                var cnames2 = $('.cont.game-data-new .game-name-new a');
+
+                names1.each(function () {
+                  var chousenName = $(this).text();
+                  var chousenId = $(this).next('.id-code').text();
+                  cnames2.each(function () {
+                    var chousenHameBase = $(this).text();
+                    var chousenHameBaseUrl = $(this).attr('href');
+
+                    if (chousenName === chousenHameBase) {
+                      $('.cont.total-data').append('<div class="game-name-total" style="margin-bottom: 20px;"><a target="_blank" class="btn btn-sm btn-success btn-gamename" href="' + chousenHameBaseUrl + '" >' + chousenHameBase + '</a>' + '<a class="btn btn-sm btn-info" onclick="copyText(this)">' + chousenId + '</a><button class="btn btn-sm btn-danger btn-cross pull-right" onclick="hideParent(this)">X</button><button onclick="checkLink(this)" class="btn btn-sm btn-warning btn-check-lnk">Есть ссылка?</button></div>');
+                    }
+                  });
+                });
+
+                $('button.main-btn').hide();
+                $('#reload').show();
+                $('#checkAll').show();
+                $('#total-id-input').show();
+                $('.cont.xml-data').html('');
+                $('.cont.game-data-new').html('');
+                $('#working').fadeOut('fast');
+                $('.result-row').hide();
+              });
+
+              $('#reload').click(function () {
+                location.reload();
+              });
+
+              $('#checkAll').click(function () {
+                $('.game-name-total .btn-check-lnk').each(function (i, elem) {
+                  checkLink($(this));
+                });
+                $(this).hide();
+                $('#reload').hide();
+                $('#removeAdd').show();
+                $('#removeStubborn').show();
+              });
+
+              $('#removeAdd').click(function () {
+                $('.game-name-total.bg-success').each(function (i, elem) {
+                  $(this).hide();
+                });
+              });
+
+              $('#removeStubborn').click(function () {
+                $('.game-name-total.bg-warning').each(function (i, elem) {
+                  $(this).hide();
+                });
+              });
+            });
+
+            function copyText(obj) {
+              var copyText = $("#id-poly");
+              copyText.val($(obj).text());
+              copyText.select();
+              document.execCommand("Copy");
+            }
+
+            function hideParent(obj) {
+              $(obj).parent('.game-name-total').fadeOut(500);
+            }
+
+            function checkLink(obj) {
+              $(obj).text('Загрузка...');
+              var checkBase = $(obj).parent('.game-name-total');
+              var checkA = $(checkBase).children('.btn-gamename');
+              var checkUrl = 'https:'+$(checkA).attr('href');
+              console.log(checkUrl);
+
+              $.ajax({url: checkUrl, dataType: 'html', success: function (response) {
+                  var checkedText = $(response).find('.game-title').text();
+
+                  if (checkedText === '') {
+                    $(checkBase).addClass('bg-danger');
+                    $(obj).removeClass('btn-warning');
+                    $(obj).addClass('btn-danger');
+                    $(obj).text('Ссылка не обнаружена');
+                    $(checkA).removeClass('btn-success');
+                    $(checkA).removeClass('btn-sm');
+                    $(checkA).addClass('btn-danger');
+                    $(checkA).addClass('btn-lg');
+                    var checkedText = $(response).find('#gs_import').attr('data-gid');
+                    var checkedText2 = $(response).find('#sb_import').attr('data-gid');
+                    if (checkedText !== '' && checkedText !== undefined) {
+                      $(checkBase).append($('<button class="btn btn-warning">gs_import: <b>' + checkedText + '</b></button>'));
+                      $(checkBase).removeClass('bg-danger');
+                      $(checkBase).addClass('bg-warning');
+                      $(obj).text('Ссылка GS есть, но нет в наличии');
+                      $(checkA).removeClass('btn-danger');
+                      $(checkA).addClass('btn-warning');
+                    }
+                    if (checkedText2 !== '' && checkedText2 !== undefined) {
+                      $(checkBase).append($('<button class="btn btn-warning">sb_import: <b>' + checkedText + '</b></button>'));
+                      $(checkBase).removeClass('bg-danger');
+                      $(checkBase).addClass('bg-warning');
+                      $(obj).text('Ссылка SB есть, но нет в наличии');
+                      $(checkA).removeClass('btn-danger');
+                      $(checkA).addClass('btn-warning');
+                    }
+                  } else {
+                    $(obj).removeClass('btn-warning');
+                    $(obj).removeClass('btn-danger');
+                    $(checkBase).removeClass('bg-danger');
+                    $(obj).addClass('btn-success');
+                    $(obj).text('Установленна ссылка:');
+                    if ($(response).find('.good-discount').text() !== '') {
+                      var $newdiv1 = $('<button class="btn btn-success">Good-Steam: ' + checkedText + '</button>');
+                    } else {
+                      var $newdiv1 = $('<button class="btn btn-primary">SteamBuy: ' + checkedText + '</button>');
+                    }
+                    $(checkBase).append($newdiv1);
+                    $(checkBase).addClass('bg-success');
+                    console.log($newdiv1.toString());
+                  }
+                }});
+            }
+        </script>
+    </body>
+</html>
