@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Закрасить блок</title>
+	<link rel="shortcut icon" href="https://drakeno.github.io/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script
+	src="https://code.jquery.com/jquery-1.12.4.min.js"
+	integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+	crossorigin="anonymous"></script>
+</head>
+<body>
+
+	<style>
+	.flex-wrap {
+		margin-top: 30%;
+	}
+
+	.btn {
+		margin: 20px;
+	}
+
+	.btn:disabled {
+		background: gray !important;
+		color: #c9c9c9 !important;
+	}
+
+	#secret-bg {
+		border: 1px solid black;
+		width: 300px;
+		height: 300px;
+		margin: 0 auto;
+		display: flex;
+		font-size: 30px;
+		justify-content: center;
+		text-align: center;
+		align-items: center;
+		color: #fff;
+	}
+</style>
+
+<div class="container">
+	<h1 class="text-center">Закрась правый блок</h1>
+
+	<div class="col-md-6">
+		<div class="flex-wrap">
+			<button id="greeen-btn" class="btn btn-lg btn-success">Кнопка 1</button>
+			<button id="red-btn" class="btn btn-lg btn-danger">Кнопка 2</button>
+			<button id="new-btn" class="btn btn-lg btn-info" style="display: none;">Сбросить</button>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="flex-wrap">
+			<div id="secret-bg"></div>
+		</div>
+	</div>		
+</div>
+
+<script>
+	function paintBlock(){
+		$('#secret-bg').css( 'background', '#000' );
+		$('#secret-bg').html('<p>Ура!<p>');	
+		$('#greeen-btn').hide();
+		$('#red-btn').hide();
+		$('#new-btn').show();
+	}
+
+	function disable(btn) {
+		$(btn).prop('disabled', true);
+		setTimeout(function(){
+			$(btn).prop('disabled', false);
+		}, 500);
+	}
+
+	$('#greeen-btn').click(function() {
+		setTimeout(paintBlock, 10000);
+		disable(this);
+	});
+
+	$('#red-btn').click(function() {
+		disable(this);
+	});
+
+	$('#new-btn').click(function() {
+		document.location.reload();
+	});
+</script>
+</body>
+</html>
