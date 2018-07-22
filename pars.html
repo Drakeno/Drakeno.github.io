@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Проверка игр в магазине</title>
+        <title>РџСЂРѕРІРµСЂРєР° РёРіСЂ РІ РјР°РіР°Р·РёРЅРµ</title>
          <link rel="shortcut icon" href="https://drakeno.github.io/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <script
@@ -46,20 +46,20 @@
         </div>
         <div class="container">
             <blockquote>
-                <h2>Помни!</h2>
+                <h2>РџРѕРјРЅРё!</h2>
                 <div id="gs-code">
-                    <p>Импорт good-steam:</p>
+                    <p>РРјРїРѕСЂС‚ good-steam:</p>
                     <textarea name="" id="" cols="50" rows="2">&lt;span id="gs_import" data-gid="2324825"&gt;&lt;/span&gt;
 http://good-steam.ru/agent.php?id=230765&idd=2149344</textarea>
                 </div>
                 <div id="sb-code">
-                    <p>Импорт steambuy:</p>
+                    <p>РРјРїРѕСЂС‚ steambuy:</p>
                     <textarea name="" id="" cols="50" rows="2">&lt;span id="sb_import" data-gid="2324825"&gt;&lt;/span&gt;</textarea>
                 </div>
             </blockquote>
 
             <div id="total-id-input" class="id-form center-block" style="max-width: 300px;margin-bottom: 30px;display: none;">
-                Скопированный ID: <input class="form-control" id="id-poly" type="text">
+                РЎРєРѕРїРёСЂРѕРІР°РЅРЅС‹Р№ ID: <input class="form-control" id="id-poly" type="text">
             </div>
         </div>
         <div class="text-center" style="margin-bottom: 30px;">
@@ -67,22 +67,22 @@ http://good-steam.ru/agent.php?id=230765&idd=2149344</textarea>
             <button class="btn main-btn btn-lg btn-success" id="xml-downl-sb">XML SB</button>
             <button class="btn main-btn btn-lg btn-info" id="table-names" style="display: none;">Games on CL</button>
             <button class="btn main-btn btn-lg btn-primary" id="compare" style="display: none;">Compare</button>
-            <button class="btn main-btn btn-lg btn-danger" id="reload">Сбросить</button>
-            <button class="btn main-btn btn-lg btn-primary" id="checkAll" style="display: none;">Проверить все</button>
-            <button class="btn main-btn btn-lg btn-success" id="removeAdd" style="display: none;">Удалить нормальные</button>
-            <button class="btn main-btn btn-lg btn-warning" id="removeStubborn" style="display: none;">Удалить спорные</button>
+            <button class="btn main-btn btn-lg btn-danger" id="reload">РЎР±СЂРѕСЃРёС‚СЊ</button>
+            <button class="btn main-btn btn-lg btn-primary" id="checkAll" style="display: none;">РџСЂРѕРІРµСЂРёС‚СЊ РІСЃРµ</button>
+            <button class="btn main-btn btn-lg btn-success" id="removeAdd" style="display: none;">РЈРґР°Р»РёС‚СЊ РЅРѕСЂРјР°Р»СЊРЅС‹Рµ</button>
+            <button class="btn main-btn btn-lg btn-warning" id="removeStubborn" style="display: none;">РЈРґР°Р»РёС‚СЊ СЃРїРѕСЂРЅС‹Рµ</button>
         </div>
         <div class="container-fluid">
             <div class="container cont total-data table-striped"></div>
             <div class="row result-row">
                 <div class="col-md-6">
                     <h2 id="cat-data-label"></h2>
-                    <div class="well cont xml-data">Здесь выгрузятся данные из магазина</div>
+                    <div class="well cont xml-data">Р—РґРµСЃСЊ РІС‹РіСЂСѓР·СЏС‚СЃСЏ РґР°РЅРЅС‹Рµ РёР· РјР°РіР°Р·РёРЅР°</div>
                 </div>
                 <div class="col-md-6">
                     <h2 id="cl-data-label"></h2>
                     <div class="cont game-data"></div>
-                    <div class="well cont game-data-new">Здесь выгрузятся игры из базы</div>
+                    <div class="well cont game-data-new">Р—РґРµСЃСЊ РІС‹РіСЂСѓР·СЏС‚СЃСЏ РёРіСЂС‹ РёР· Р±Р°Р·С‹</div>
                 </div>
             </div>
         </div>
@@ -98,7 +98,7 @@ http://good-steam.ru/agent.php?id=230765&idd=2149344</textarea>
                     var xmlGameName = $(this).find('name_goods').text();
                     var xmlGameId = $(this).find('id_goods').text();
                     $('.cont.xml-data').append('<div class="catalog-name">' + xmlGameName + '</div>' + '<span class="id-code">' + xmlGameId + '</span>');
-                    $('#cat-data-label').text('Игр в магазине: ' + i);
+                    $('#cat-data-label').text('РРіСЂ РІ РјР°РіР°Р·РёРЅРµ: ' + i);
                   });
                 }, 'xml');
                 $('button.main-btn').hide();
@@ -116,7 +116,7 @@ http://good-steam.ru/agent.php?id=230765&idd=2149344</textarea>
                     var xmlGameName = $(this).find('name').text();
                     var xmlGameId = $(this).find('id_good').text();
                     $('.cont.xml-data').append('<div class="catalog-name">' + xmlGameName + '</div>' + '<span class="id-code">&nbsp;<b>' + xmlGameId + '</b></span>');
-                    $('#cat-data-label').text('Игр в магазине: ' + i);
+                    $('#cat-data-label').text('РРіСЂ РІ РјР°РіР°Р·РёРЅРµ: ' + i);
                   });
                   $('#working').fadeOut('fast');
                 }, 'xml');
@@ -138,7 +138,7 @@ http://good-steam.ru/agent.php?id=230765&idd=2149344</textarea>
                       var gameLink = $(this).attr('href');
                       $('.cont.game-data-new').append('<div class="game-name-new"><a href=' + gameLink + '>' + gameName + '</a></div>');
                       $('.cont.game-data').html('');
-                      $('#cl-data-label').text('Игр в базе на сайте: ' + index);
+                      $('#cl-data-label').text('РРіСЂ РІ Р±Р°Р·Рµ РЅР° СЃР°Р№С‚Рµ: ' + index);
                     });
                     $('#working').fadeOut('fast');
                   }});
@@ -148,7 +148,7 @@ http://good-steam.ru/agent.php?id=230765&idd=2149344</textarea>
 
               $('#compare').click(function () {
                 $('#working').fadeIn();
-                $('.cont.total-data').append('<h2>Совпадения:</h2>');
+                $('.cont.total-data').append('<h2>РЎРѕРІРїР°РґРµРЅРёСЏ:</h2>');
 
                 var names1 = $('.cont.xml-data .catalog-name');
                 var cnames2 = $('.cont.game-data-new .game-name-new a');
@@ -161,7 +161,7 @@ http://good-steam.ru/agent.php?id=230765&idd=2149344</textarea>
                     var chousenHameBaseUrl = $(this).attr('href');
 
                     if (chousenName === chousenHameBase) {
-                      $('.cont.total-data').append('<div class="game-name-total" style="margin-bottom: 20px;"><a target="_blank" class="btn btn-sm btn-success btn-gamename" href="' + chousenHameBaseUrl + '" >' + chousenHameBase + '</a>' + '<a class="btn btn-sm btn-info" onclick="copyText(this)">' + chousenId + '</a><button class="btn btn-sm btn-danger btn-cross pull-right" onclick="hideParent(this)">X</button><button onclick="checkLink(this)" class="btn btn-sm btn-warning btn-check-lnk">Есть ссылка?</button></div>');
+                      $('.cont.total-data').append('<div class="game-name-total" style="margin-bottom: 20px;"><a target="_blank" class="btn btn-sm btn-success btn-gamename" href="' + chousenHameBaseUrl + '" >' + chousenHameBase + '</a>' + '<a class="btn btn-sm btn-info" onclick="copyText(this)">' + chousenId + '</a><button class="btn btn-sm btn-danger btn-cross pull-right" onclick="hideParent(this)">X</button><button onclick="checkLink(this)" class="btn btn-sm btn-warning btn-check-lnk">Р•СЃС‚СЊ СЃСЃС‹Р»РєР°?</button></div>');
                     }
                   });
                 });
@@ -215,7 +215,7 @@ http://good-steam.ru/agent.php?id=230765&idd=2149344</textarea>
             }
 
             function checkLink(obj) {
-              $(obj).text('Загрузка...');
+              $(obj).text('Р—Р°РіСЂСѓР·РєР°...');
               var checkBase = $(obj).parent('.game-name-total');
               var checkA = $(checkBase).children('.btn-gamename');
               var checkUrl = 'https:'+$(checkA).attr('href');
@@ -228,7 +228,7 @@ http://good-steam.ru/agent.php?id=230765&idd=2149344</textarea>
                     $(checkBase).addClass('bg-danger');
                     $(obj).removeClass('btn-warning');
                     $(obj).addClass('btn-danger');
-                    $(obj).text('Ссылка не обнаружена');
+                    $(obj).text('РЎСЃС‹Р»РєР° РЅРµ РѕР±РЅР°СЂСѓР¶РµРЅР°');
                     $(checkA).removeClass('btn-success');
                     $(checkA).removeClass('btn-sm');
                     $(checkA).addClass('btn-danger');
@@ -239,7 +239,7 @@ http://good-steam.ru/agent.php?id=230765&idd=2149344</textarea>
                       $(checkBase).append($('<button class="btn btn-warning">gs_import: <b>' + checkedText + '</b></button>'));
                       $(checkBase).removeClass('bg-danger');
                       $(checkBase).addClass('bg-warning');
-                      $(obj).text('Ссылка GS есть, но нет в наличии');
+                      $(obj).text('РЎСЃС‹Р»РєР° GS РµСЃС‚СЊ, РЅРѕ РЅРµС‚ РІ РЅР°Р»РёС‡РёРё');
                       $(checkA).removeClass('btn-danger');
                       $(checkA).addClass('btn-warning');
                     }
@@ -247,7 +247,7 @@ http://good-steam.ru/agent.php?id=230765&idd=2149344</textarea>
                       $(checkBase).append($('<button class="btn btn-warning">sb_import: <b>' + checkedText + '</b></button>'));
                       $(checkBase).removeClass('bg-danger');
                       $(checkBase).addClass('bg-warning');
-                      $(obj).text('Ссылка SB есть, но нет в наличии');
+                      $(obj).text('РЎСЃС‹Р»РєР° SB РµСЃС‚СЊ, РЅРѕ РЅРµС‚ РІ РЅР°Р»РёС‡РёРё');
                       $(checkA).removeClass('btn-danger');
                       $(checkA).addClass('btn-warning');
                     }
@@ -256,7 +256,7 @@ http://good-steam.ru/agent.php?id=230765&idd=2149344</textarea>
                     $(obj).removeClass('btn-danger');
                     $(checkBase).removeClass('bg-danger');
                     $(obj).addClass('btn-success');
-                    $(obj).text('Установленна ссылка:');
+                    $(obj).text('РЈСЃС‚Р°РЅРѕРІР»РµРЅРЅР° СЃСЃС‹Р»РєР°:');
                     if ($(response).find('.good-discount').text() !== '') {
                       var $newdiv1 = $('<button class="btn btn-success">Good-Steam: ' + checkedText + '</button>');
                     } else {
