@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Проверка наличия игр в Базе</title>
+        <title>РџСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ РёРіСЂ РІ Р‘Р°Р·Рµ</title>
         <link rel="shortcut icon" href="https://drakeno.github.io/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <script
@@ -46,23 +46,23 @@
         </div>
         <div class="container">
             <div class="page-header">
-                <h1>Проверка наличия последних игр в базе</h1>
+                <h1>РџСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ РїРѕСЃР»РµРґРЅРёС… РёРіСЂ РІ Р±Р°Р·Рµ</h1>
             </div>
             <div id="total-id-input" class="id-form center-block" style="max-width: 300px;margin-bottom: 30px;display: none;">
-                Скопированный ID: <input class="form-control" id="id-poly" type="text">
+                РЎРєРѕРїРёСЂРѕРІР°РЅРЅС‹Р№ ID: <input class="form-control" id="id-poly" type="text">
             </div>
         </div>
         <div class="text-center" style="margin-bottom: 30px;">
-            <button class="btn main-btn btn-lg btn-success page-check" data-href="https://coop-land.ru/allgames/">Проверка первой страницы</button>
-            <button class="btn main-btn btn-lg btn-success page-check" data-href="https://coop-land.ru/allgames/page/2/">Второй</button>
-            <button class="btn main-btn btn-lg btn-success page-check" data-href="https://coop-land.ru/allgames/page/3/">Третьей</button>
-            <button class="btn main-btn btn-lg btn-success page-check" data-href="https://coop-land.ru/allgames/page/4/">Четвертой</button>
-            <button class="btn main-btn btn-lg btn-success page-check" data-href="https://coop-land.ru/allgames/page/5/">Пятой</button>
-            <button class="btn main-btn btn-lg btn-success page-check" data-href="https://coop-land.ru/allgames/page/6/">Шестой</button>
+            <button class="btn main-btn btn-lg btn-success page-check" data-href="https://coop-land.ru/allgames/">РџСЂРѕРІРµСЂРєР° РїРµСЂРІРѕР№ СЃС‚СЂР°РЅРёС†С‹</button>
+            <button class="btn main-btn btn-lg btn-success page-check" data-href="https://coop-land.ru/allgames/page/2/">Р’С‚РѕСЂРѕР№</button>
+            <button class="btn main-btn btn-lg btn-success page-check" data-href="https://coop-land.ru/allgames/page/3/">РўСЂРµС‚СЊРµР№</button>
+            <button class="btn main-btn btn-lg btn-success page-check" data-href="https://coop-land.ru/allgames/page/4/">Р§РµС‚РІРµСЂС‚РѕР№</button>
+            <button class="btn main-btn btn-lg btn-success page-check" data-href="https://coop-land.ru/allgames/page/5/">РџСЏС‚РѕР№</button>
+            <button class="btn main-btn btn-lg btn-success page-check" data-href="https://coop-land.ru/allgames/page/6/">РЁРµСЃС‚РѕР№</button>
             <button class="btn main-btn btn-lg btn-info" id="table-names" style="display: none;">Games on CL</button>
             <br>
-            <button class="btn main-btn btn-lg btn-primary" id="checkAll" style="display: none;">Проверить все</button>
-            <button class="btn main-btn btn-lg btn-danger" id="reload">Сбросить</button>
+            <button class="btn main-btn btn-lg btn-primary" id="checkAll" style="display: none;">РџСЂРѕРІРµСЂРёС‚СЊ РІСЃРµ</button>
+            <button class="btn main-btn btn-lg btn-danger" id="reload">РЎР±СЂРѕСЃРёС‚СЊ</button>
         </div>
         <div class="container-fluid">
             <div class="container cont total-data table-striped"></div>
@@ -74,7 +74,7 @@
                 <div class="col-md-6">
                     <h2 id="cl-data-label"></h2>
                     <div class="cont game-data"></div>
-                    <div class="well cont game-data-new">Здесь выгрузятся игры из базы</div>
+                    <div class="well cont game-data-new">Р—РґРµСЃСЊ РІС‹РіСЂСѓР·СЏС‚СЃСЏ РёРіСЂС‹ РёР· Р±Р°Р·С‹</div>
                 </div>
             </div>
         </div>
@@ -93,8 +93,9 @@
 
                     checkedTitle.each(function (i, elem) {
                       var gameName = $(this).text();
+					  console.log(gameName);
                       var gameLink = $(this).attr('href');
-                      $('.cont.xml-data').append('<div><a class="gameBaseName" href="' + gameLink + '">' + gameName + '</a><button class="btn btn-info btn-check-this" onclick="checkLink(this)">Проверить</button></div><br>');
+                      $('.cont.xml-data').append('<div><a class="gameBaseName" href="' + gameLink + '">' + gameName + '</a><button class="btn btn-info btn-check-this" onclick="checkLink(this)">РџСЂРѕРІРµСЂРёС‚СЊ</button></div><br>');
                     });
                   }});
 
@@ -137,7 +138,7 @@
             });
 
             function checkLink(obj) {
-              $(obj).text('Загрузка...');
+              $(obj).text('Р—Р°РіСЂСѓР·РєР°...');
               removeBtnColors(obj);
               $(obj).addClass('btn-warning');
               var checkGameName = $(obj).prev('.gameBaseName').text().replace(/\r|\n/g, '');
@@ -149,14 +150,14 @@
                 if (chousenHameBase.match(checkGameName)) {
                   removeBtnColors(obj);
                   $(obj).addClass('btn-success');
-                  $(obj).text('Игра уже есть в базе');
+                  $(obj).text('РРіСЂР° СѓР¶Рµ РµСЃС‚СЊ РІ Р±Р°Р·Рµ');
                 }
               });
 
-              if ($(obj).text() !== 'Игра уже есть в базе') {
+              if ($(obj).text() !== 'РРіСЂР° СѓР¶Рµ РµСЃС‚СЊ РІ Р±Р°Р·Рµ') {
                 removeBtnColors(obj);
                 $(obj).addClass('btn-danger');
-                $(obj).text('Игры в базе нету, работай над этим');
+                $(obj).text('РРіСЂС‹ РІ Р±Р°Р·Рµ РЅРµС‚Сѓ, СЂР°Р±РѕС‚Р°Р№ РЅР°Рґ СЌС‚РёРј');
               }
             }
 
