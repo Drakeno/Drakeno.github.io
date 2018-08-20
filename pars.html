@@ -50,7 +50,7 @@
                 <div id="gs-code">
                     <p>Импорт good-steam:</p>
                     <textarea name="" id="" cols="50" rows="2">&lt;span id="gs_import" data-gid="2324825"&gt;&lt;/span&gt;
-http://good-steam.ru/agent.php?id=230765&idd=2149344</textarea>
+https://good-steam.ru/agent.php?id=230765&idd=2149344</textarea>
                 </div>
                 <div id="sb-code">
                     <p>Импорт steambuy:</p>
@@ -110,7 +110,7 @@ http://good-steam.ru/agent.php?id=230765&idd=2149344</textarea>
               $('#xml-downl-sb').click(function () {
                 $('#working').fadeIn();
 
-                $.post('http://steammachine.ru/api/goodslist/?v=1&format=xml', {}, function (xml) {
+                $.post('https://steammachine.ru/api/goodslist/?v=1&format=xml', {}, function (xml) {
                   $('.cont.xml-data').html('');
                   $(xml).find('goods').each(function (i, elem) {
                     var xmlGameName = $(this).find('name').text();
@@ -127,7 +127,7 @@ http://good-steam.ru/agent.php?id=230765&idd=2149344</textarea>
 
               $('#table-names').click(function () {
                 $('#working').fadeIn();
-                $.ajax({url: 'http://coop-land.ru//uploads/gamebase.txt', dataType: 'json', success: function (response) {
+                $.ajax({url: 'https://coop-land.ru//uploads/gamebase.txt', dataType: 'json', success: function (response) {
                     $.each(response.data, function (index, value) {
                       var fullLnk = value.toString();
                       $('.cont.game-data').append('<div class="game-name">' + fullLnk + '</div><br/>');
