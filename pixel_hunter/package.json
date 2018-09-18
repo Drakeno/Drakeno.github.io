@@ -1,0 +1,38 @@
+{
+  "description": "Личный проект «Пиксель хантер» от HTML Academy",
+  "devDependencies": {
+    "autoprefixer": "9.0.2",
+    "browser-sync": "2.24.6",
+    "chai": "4.1.2",
+    "css-mqpacker": "7.0.0",
+    "del": "3.0.0",
+    "eslint": "4.19.1",
+    "eslint-config-htmlacademy": "0.5.x",
+    "gulp": "3.9.1",
+    "gulp-better-rollup": "3.3.0",
+    "gulp-csso": "3.0.1",
+    "gulp-imagemin": "4.1.0",
+    "gulp-mocha": "6.0.0",
+    "gulp-plumber": "1.2.0",
+    "gulp-postcss": "7.0.1",
+    "gulp-rename": "1.4.0",
+    "gulp-sass": "4.0.1",
+    "gulp-sourcemaps": "2.6.4",
+    "gulp-svgstore": "6.1.1",
+    "rollup-plugin-commonjs": "9.1.5",
+    "stylelint": "^9.4.0",
+    "stylelint-config-htmlacademy": "0.1.x"
+  },
+  "engines": {
+    "node": "8"
+  },
+  "private": true,
+  "scripts": {
+    "build": "gulp build",
+    "eslint": "eslint ./gulpfile.js js/",
+    "start": "gulp serve",
+    "stylelint": "stylelint sass/",
+    "test": "npm run eslint \u0026\u0026 npm run stylelint \u0026\u0026 gulp test"
+  },
+  "version": "5.0.0"
+}
