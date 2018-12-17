@@ -94,10 +94,10 @@ var model = {
 var view = {
   displayCells: function (boardSize) {
     var board = document.getElementById("board");
-    board.innerHTML = '';
+    board.innerHTML = "";
 
     for (var i = 0; i < boardSize; i++) {
-      board.appendChild(renderElement('tr'));
+      board.appendChild(renderElement("tr"));
     }
 
     var tableRows = board.getElementsByTagName("tr");
@@ -171,13 +171,13 @@ function renderElement(tagName) {
 
 function renderElementWidthId(tagName, tagId) {
   const wrapper = document.createElement(tagName);
-  wrapper.setAttribute('id', tagId);
+  wrapper.setAttribute("id", tagId);
   return wrapper;
 };
 
 function renderCellWidthDiv(tagId) {
-  const wrapper = document.createElement('td');
-  wrapper.appendChild(renderElementWidthId('div', tagId));
+  const wrapper = document.createElement("td");
+  wrapper.appendChild(renderElementWidthId("div", tagId));
   return wrapper;
 };
 
