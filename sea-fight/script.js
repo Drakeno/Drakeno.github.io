@@ -171,7 +171,7 @@ function renderElement(tagName) {
 
 function renderElementWidthId(tagName, tagId) {
   const wrapper = document.createElement(tagName);
-  wrapper.setAttribute(`id`, tagId || ``);
+  wrapper.setAttribute('id', tagId);
   return wrapper;
 };
 
