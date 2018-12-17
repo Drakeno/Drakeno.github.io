@@ -1,0 +1,87 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #333;
+}
+
+.container {
+  padding: 10px;
+  margin: 0 auto;
+  max-width: 644px;
+  text-align: center;
+}
+
+.container .title {
+  color: #fff;
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+#game table {
+  border-collapse: separate;
+  border-spacing: 3px;
+  margin: 0 auto;
+}
+
+#game td {
+  width: 30px;
+  height: 30px;
+  border: 1px solid gray;
+  background: skyblue;
+}
+
+#game td:hover {
+  background: #eee;
+  cursor: pointer;
+}
+
+#game td div {
+  transition: .2s;
+  width: 30px;
+  height: 30px;
+}
+
+.miss {
+  background: gray;
+}
+
+.hit {
+  background: black;
+}
+
+.full-hit {
+  transition: .3s;
+  background: red;
+  animation: pulse .5s ease-in;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1.2);
+    background: yellow;
+  }
+  to {
+    transform: cale(1);
+    background: red;
+  }
+}
+
+#message {
+  width: 100%;
+  text-align: center;
+  margin-top: 5px;
+  color: #f4f8ff;
+  font-size: 25px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 100%;
+  }
+}
