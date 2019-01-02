@@ -70,20 +70,44 @@
   const resizeImg = (image, frame) => {
     const picture = new Image();
     picture.src = image.src;
+
     picture.onload = () => {
-      const properSize = resize(frame, picture);
+      let resolvedImgSize = {
+        width: picture.width,
+        height: picture.height
+      };
+
+      const properSize = resize(frame, resolvedImgSize);
       picture.width = properSize.width;
       picture.height = properSize.height;
     };
+
     return picture;
   };
 
-  const resizeToProperSize = (image) => {
-    const frame = {
-      width: image.width,
-      height: image.height
-    };
-    return resizeImg(image, frame);
+  const renderImage = (item, alt) => {
+    item.alt = alt;
+    return item;
+  };
+
+  const massImageResize = (task) => {
+    const promise = new Promise((resolve, reject) => {
+      const baseFrame = {
+        width: task.width,
+        height: task.height
+      };
+      const properSize = resizeImg(task, baseFrame);
+      resolve(properSize);
+      setTimeout(() => reject(new Error(`error`)), 5000);
+    });
+
+    promise
+      .then(
+          (result) => {
+            task.properImg = result;
+          },
+          (error) => error
+      );
   };
 
   class AbstractView {
@@ -127,24 +151,6 @@
     }
   }
 
-  class SplashScreen extends AbstractView {
-    constructor() {
-      super();
-    }
-
-    getTemplate() {
-      return `<div>Загрузка...</div>`;
-    }
-
-    start() {
-      this.timeout = setTimeout(() => this.start(), 50);
-    }
-
-    stop() {
-      clearTimeout(this.timeout);
-    }
-  }
-
   class ErrorModal extends AbstractView {
 
     constructor(error) {
@@ -164,9 +170,9 @@
   }
 
   const GameType = {
-    TwoOfTwo: 0,
-    OneOfOne: 1,
-    OneOfThree: 2
+    twoOfTwo: 0,
+    oneOfOne: 1,
+    oneOfThree: 2
   };
 
   const ImageType = {
@@ -175,12 +181,16 @@
   };
 
   const globalGameData = {
+    DEBUG: window.location.hash.replace(`#`, ``).toLowerCase() === `debug`,
     TOTAL_LIVES: 3,
     MIN_LIVES: 0,
     MAX_ANSWERS: 10,
     START_TIME: 30,
     FAST_TIME: 20,
     SLOW_TIME: 10,
+    WARNING_TIME: 5,
+    END_TIME: 0,
+    TIME_TICK: 1000,
 
     StatsType: {
       WRONG: 0,
@@ -220,9 +230,9 @@
   }
 
   const localTypeMapper = {
-    'two-of-two': GameType.TwoOfTwo,
-    'one-of-three': GameType.OneOfThree,
-    'tinder-like': GameType.OneOfOne
+    'two-of-two': GameType.twoOfTwo,
+    'one-of-three': GameType.oneOfThree,
+    'tinder-like': GameType.oneOfOne
   };
 
   const localAnswerTypeMapper = {
@@ -346,6 +356,11 @@
       speedBonusTitle: `Бонус за скорость:`,
       lifeBonusTitle: `Бонус за жизни:`,
       fineTitle: `Штраф за медлительность:`
+    },
+
+    gamePage: {
+      photoAnswer: `photo`,
+      paintAnswer: `paint`
     }
 
   };
@@ -358,10 +373,12 @@
         Application.showGreeting();
       };
     }
+
     getTemplate() {
-      return `<section class="intro"><button class="intro__asterisk asterisk" type="button"><span class="visually-hidden">Продолжить</span>*</button>
+      return `<section class="intro"><button class="intro__asterisk asterisk load" type="button"><span class="visually-hidden">Продолжить</span>*</button>
     <p class="intro__motto"><sup>*</sup>${templatesData.intro.text}</p></section>`;
     }
+
     bind() {
       this.actionElements = this.element.querySelectorAll(`.intro__asterisk`);
       super.bind();
@@ -425,16 +442,13 @@
         this.container.innerHTML = this.currentTime;
         this.currentTime--;
 
-        const warningTime = 5;
-        const callbackTime = 0;
-
-        if (this.currentTime < callbackTime) {
+        if (this.currentTime < globalGameData.END_TIME) {
           this.callback();
-        } else if (this.currentTime < warningTime) {
+        } else if (this.currentTime < globalGameData.WARNING_TIME) {
           this.timeWarningCallback();
-          this.timeoutId = setTimeout(tick, 1000);
+          this.timeoutId = setTimeout(tick, globalGameData.TIME_TICK);
         } else {
-          this.timeoutId = setTimeout(tick, 1000);
+          this.timeoutId = setTimeout(tick, globalGameData.TIME_TICK);
         }
       };
 
@@ -452,11 +466,13 @@
 
   const points = globalGameData.Points;
   const statsType = globalGameData.StatsType;
+  const debugMode = globalGameData.DEBUG;
 
-  class State {
+  class GameModel {
     constructor(state) {
       const initialState = new GameData();
       this._state = state ? state : initialState;
+      this._state.debugMode = debugMode ? debugMode : null;
     }
 
     get currentRound() {
@@ -479,11 +495,11 @@
     }
 
     setResult(answer, time) {
-      this._state = State.setResult(this._state, answer, time);
+      this._state = GameModel.setResult(this._state, answer, time);
     }
 
     countTotal() {
-      this._state = State.countTotal(this._state);
+      this._state = GameModel.countTotal(this._state);
     }
 
     static checkCorrect(taskResult) {
@@ -494,7 +510,7 @@
     }
 
     static setStats(round, value) {
-      let newStats = round.stats.slice();
+      const newStats = round.stats.slice();
       newStats[round.currentTask] = value;
       return Object.assign({}, round, {
         stats: newStats
@@ -512,7 +528,7 @@
         } else {
           result = statsType.CORRECT;
         }
-      } else if (!taskResult.isCorrect) {
+      } else {
         result = statsType.WRONG;
       }
       return Object.assign({}, taskResult, {
@@ -539,9 +555,9 @@
       const resultWithAnswers = setRealAnswer(setUserAnswer({}, answer), realAnswer);
 
       const resultWithTime = setTime(resultWithAnswers, time);
-      const taskResult = State.checkAnswerType(State.checkCorrect(resultWithTime));
+      const taskResult = GameModel.checkAnswerType(GameModel.checkCorrect(resultWithTime));
 
-      let gameStatus = State.setStats(round, taskResult.statsType);
+      let gameStatus = GameModel.setStats(round, taskResult.statsType);
 
       if (!taskResult.isCorrect) {
         gameStatus = decreaseLives(gameStatus);
@@ -609,7 +625,7 @@
     }
   }
 
-  const state = new State();
+  var GameModel$1 = new GameModel();
 
   class BackButtonView extends AbstractView {
     constructor() {
@@ -634,7 +650,7 @@
 
     static callback(element) {
       element.preventDefault();
-      state.reset();
+      GameModel$1.reset();
       Application.showGreeting();
     }
   }
@@ -660,6 +676,7 @@
     <form class="rules__form">
       <input class="rules__input" type="text" placeholder="Ваше Имя">
       <button class="rules__button  continue" type="submit" disabled>Go!</button>
+      <p class="rules__devhint">*Режим отладки: Добавить <b>#debug</b> в адресную строку</p>
     </form></section>`;
 
       return header + rules;
@@ -670,6 +687,7 @@
       this.rulesForm = this.element.querySelector(`.rules__form`);
       this.rulesInput = this.rulesForm.querySelector(`.rules__input`);
       this.rulesSubmit = this.rulesForm.querySelector(`.rules__button`);
+      this.devCheck = this.rulesForm.querySelector(`#dev-check`);
 
       this.inputCallback = () => {
         if (this.rulesInput.value) {
@@ -770,6 +788,9 @@
     }
   }
 
+  const ANSWER_TYPES = templatesData.gamePage;
+  const DEBUG = globalGameData.DEBUG;
+
   class TwoOfTwoGameView extends AbstractView {
     get element() {
       if (this._element) {
@@ -785,11 +806,22 @@
       const createOptions = (tasks) => {
         const content = renderElement(``, `form`, `game__content`);
         tasks.forEach((item) => {
-          const properImage = resizeToProperSize(item);
           const index = tasks.indexOf(item) + 1;
-          properImage.alt = `Option ${index}`;
+          const properImage = renderImage(item.properImg, `Option ${index}`);
           const answersBtns = new AnswerBtnsView(`question${index}`).element;
           const option = renderElement(``, `div`, `game__option`);
+
+          if (DEBUG) {
+            let hintText;
+            if (item.type === ImageType.PHOTO) {
+              hintText = `ФОТО`;
+            } else if (item.type === ImageType.PAINT) {
+              hintText = `РИСУНОК`;
+            }
+            const hint = renderElement(hintText, `p`, `game__hint`);
+            option.appendChild(hint);
+          }
+
           option.appendChild(properImage);
           option.appendChild(answersBtns);
 
@@ -821,13 +853,12 @@
           timer.stop();
           const secondAnswer = element.currentTarget.querySelector(`input`).value;
           const answerSynchronize = (firstInput.name === firstName) ? [firstInput.value, secondAnswer] : [secondAnswer, firstInput.value];
-          const photoAnswer = `photo`;
-          const paintAnswer = `paint`;
+
           const answer = answerSynchronize.map((userAnswer) => {
             switch (userAnswer) {
-              case photoAnswer:
+              case ANSWER_TYPES.photoAnswer:
                 return ImageType.PHOTO;
-              case paintAnswer:
+              case ANSWER_TYPES.paintAnswer:
                 return ImageType.PAINT;
               default:
                 return null;
@@ -843,7 +874,11 @@
     }
   }
 
+  const DEBUG$1 = globalGameData.DEBUG;
+  const ANSWER_TYPES$1 = templatesData.gamePage;
+
   class OneOfOneGameView extends AbstractView {
+
     get element() {
       if (this._element) {
         return this._element;
@@ -857,11 +892,22 @@
     getTemplate() {
       const createOption = (item) => {
         const content = renderElement(``, `form`, `game__content game__content--wide`);
-        const properImage = resizeToProperSize(item);
-        properImage.alt = `Option 1`;
+        const properImage = renderImage(item.properImg, `Option 1`);
         const answersButtons = new AnswerBtnsView(`question1`).element;
 
         const soloOption = renderElement(``, `div`, `game__option`);
+
+        if (DEBUG$1) {
+          let hintText;
+          if (item.type === ImageType.PHOTO) {
+            hintText = `ФОТО`;
+          } else if (item.type === ImageType.PAINT) {
+            hintText = `РИСУНОК`;
+          }
+          const hint = renderElement(hintText, `p`, `game__hint`);
+          soloOption.appendChild(hint);
+        }
+
         soloOption.appendChild(properImage);
         soloOption.appendChild(answersButtons);
 
@@ -882,18 +928,20 @@
       element.preventDefault();
       timer.stop();
       const userAnswer = element.currentTarget.querySelector(`input`).value;
-      const photoAnswer = `photo`;
-      const paintAnswer = `paint`;
+
       let answer;
-      if (userAnswer === photoAnswer) {
+
+      if (userAnswer === ANSWER_TYPES$1.photoAnswer) {
         answer = [ImageType.PHOTO];
-      } else if (userAnswer === paintAnswer) {
+      } else if (userAnswer === ANSWER_TYPES$1.paintAnswer) {
         answer = [ImageType.PAINT];
       }
       state.setResult(answer, timer.getTime());
       GameView.goToNextScreen();
     }
   }
+
+  const DEBUG$2 = globalGameData.DEBUG;
 
   class OneOfThreeGameView extends AbstractView {
     get element() {
@@ -910,10 +958,22 @@
       const createOptions = (tasks) => {
         const content = renderElement(``, `form`, `game__content game__content--triple`);
         tasks.forEach((item) => {
-          const properImage = resizeToProperSize(item);
           const index = tasks.indexOf(item) + 1;
-          properImage.alt = `Option ${index}`;
+          const properImage = renderImage(item.properImg, `Option ${index}`);
+
           const option = renderElement(``, `div`, `game__option`);
+
+          if (DEBUG$2) {
+            let hintText;
+            if (item.type === ImageType.PHOTO) {
+              hintText = `ФОТО`;
+            } else if (item.type === ImageType.PAINT) {
+              hintText = `РИСУНОК`;
+            }
+            const hint = renderElement(hintText, `p`, `game__hint`);
+            option.appendChild(hint);
+          }
+
           if (item.type === ImageType.PHOTO) {
             option.dataset.imageType = ImageType.PHOTO;
           } else {
@@ -959,7 +1019,7 @@
     constructor(questData, name) {
       this.name = name;
       this.questData = questData;
-      this.round = state.currentRound;
+      this.round = GameModel$1.currentRound;
       this.task = this.questData[this.round.currentTask];
       this.header = this.renderHeader();
       this.level = this.renderLevel();
@@ -988,12 +1048,12 @@
 
     renderGameContent() {
       switch (this.task.gameType) {
-        case GameType.TwoOfTwo:
-          return new TwoOfTwoGameView(this.task, GameView.TwoOfTwoCallback).element;
-        case GameType.OneOfOne:
-          return new OneOfOneGameView(this.task, GameView.OneOfOneCallback).element;
-        case GameType.OneOfThree:
-          return new OneOfThreeGameView(this.task, GameView.OneOfThreeCallback).element;
+        case GameType.twoOfTwo:
+          return new TwoOfTwoGameView(this.task, GameView.twoOfTwoCallback).element;
+        case GameType.oneOfOne:
+          return new OneOfOneGameView(this.task, GameView.oneOfOneCallback).element;
+        case GameType.oneOfThree:
+          return new OneOfThreeGameView(this.task, GameView.oneOfThreeCallback).element;
         default:
           throw new Error(`Unknown game type`);
       }
@@ -1004,14 +1064,10 @@
     }
 
     startLevel() {
-      state.configure(this.questData, this.name);
+      GameModel$1.configure(this.questData, this.name);
       timer.configure(globalGameData.START_TIME, this.game.querySelector(`.game__timer`), GameView.timeWarningCallback, GameView.timeOverCallback).start();
 
       return this.game;
-    }
-
-    returnQuestions() {
-      return this.questData;
     }
 
     static timeWarningCallback() {
@@ -1019,28 +1075,28 @@
     }
 
     static timeOverCallback() {
-      state.setResult([], 0);
+      GameModel$1.setResult([], 0);
       GameView.goToNextScreen();
     }
 
-    static TwoOfTwoCallback(e) {
-      TwoOfTwoGameView.setGame(e, state, GameView);
+    static twoOfTwoCallback(e) {
+      TwoOfTwoGameView.setGame(e, GameModel$1, GameView);
     }
 
-    static OneOfOneCallback(e) {
-      OneOfOneGameView.setGame(e, state, GameView);
+    static oneOfOneCallback(e) {
+      OneOfOneGameView.setGame(e, GameModel$1, GameView);
     }
 
-    static OneOfThreeCallback(e) {
-      OneOfThreeGameView.setGame(e, state, GameView);
+    static oneOfThreeCallback(e) {
+      OneOfThreeGameView.setGame(e, GameModel$1, GameView);
     }
 
     static goToNextScreen() {
-      const round = state.currentRound;
+      const round = GameModel$1.currentRound;
       const current = round.currentTask;
       if (round.lives < globalGameData.MIN_LIVES || current >= globalGameData.MAX_ANSWERS) {
-        state.countTotal();
-        Application.showResults(state);
+        GameModel$1.countTotal();
+        Application.showResults(GameModel$1);
       } else {
         Application.showGame();
       }
@@ -1064,8 +1120,19 @@
   </section>`;
     }
 
+    static setBonusBlock(title, number, pointsForOne, total) {
+      return `<tr>
+            <td></td>
+            <td class="result__extra">${title}</td>
+            <td class="result__extra">${number}</td>
+            <td class="result__points">× ${pointsForOne}</td>
+            <td class="result__total">${total}</td>
+            </tr>`;
+    }
+
     showScores(loadedData) {
       const resultsData = loadedData.reverse();
+
       let resultContainer = ``;
       resultsData.forEach((result) => {
         const round = result.round;
@@ -1081,33 +1148,15 @@
 
         if (round.isWin && (round.fastBonuses !== null || round.livesBonuses !== null || round.slowFine !== null)) {
           if (round.fastBonuses) {
-            bonusesBlock += `<tr>
-        <td></td>
-        <td class="result__extra">${data.speedBonusTitle}</td>
-        <td class="result__extra">${round.fastBonuses} <span class="stats__result stats__result--fast"></span></td>
-        <td class="result__points">× ${points$1.BONUS}</td>
-        <td class="result__total">${round.fastBonuses * points$1.BONUS}</td>
-      </tr>`;
+            bonusesBlock += StatsView.setBonusBlock(data.speedBonusTitle, round.fastBonuses, points$1.BONUS, round.fastBonuses * points$1.BONUS);
           }
 
           if (round.livesBonuses) {
-            bonusesBlock += `<tr>
-        <td></td>
-        <td class="result__extra">${data.lifeBonusTitle}</td>
-        <td class="result__extra">${round.livesBonuses} <span class="stats__result stats__result--fast"></span></td>
-        <td class="result__points">× ${points$1.BONUS}</td>
-        <td class="result__total">${round.livesBonuses * points$1.BONUS}</td>
-      </tr>`;
+            bonusesBlock += StatsView.setBonusBlock(data.lifeBonusTitle, round.livesBonuses, points$1.BONUS, round.livesBonuses * points$1.BONUS);
           }
 
           if (round.slowFine) {
-            bonusesBlock += `<tr>
-        <td></td>
-        <td class="result__extra">${data.lifeBonusTitle}</td>
-        <td class="result__extra">${round.slowFine} <span class="stats__result stats__result--fast"></span></td>
-        <td class="result__points">× ${points$1.FINE}</td>
-        <td class="result__total">${round.slowFine * points$1.FINE}</td>
-      </tr>`;
+            bonusesBlock += StatsView.setBonusBlock(data.fineTitle, round.slowFine, points$1.FINE, round.slowFine * points$1.FINE);
           }
         }
 
@@ -1133,32 +1182,32 @@
   let questData;
   class Application {
     static start() {
-      const splash = new SplashScreen();
-      showScreen(splash.element);
-      splash.start();
+      const intro = new IntroView(true);
+      showScreen(intro.element);
       Loader.loadData().
+        catch((error) => Application.showError(error)).
         then((data) => {
           questData = data;
-          return questData;
-        }).
-        then((response) => Application.showIntro(response)).
-        catch(Application.showError).
-      then(() => splash.stop());
+          Promise.all([questData.forEach((element) => {
+            element.tasks.forEach((task) => massImageResize(task));
+          })]).
+            then(() => {
+              Application.showGreeting();
+            });
+        });
     }
 
-    static showIntro() {
-      this.currentView = new IntroView();
-      showScreen(this.currentView.element);
-    }
     static showGreeting() {
       this.currentView = new GreetingView();
       showScreen(this.currentView.element);
     }
+
     static showRules() {
       this.currentView.clear();
       this.currentView = new RulesView();
       showScreen(this.currentView.element);
     }
+
     static showGame(name) {
       if (this.currentView) {
         this.currentView.clear();
@@ -1166,14 +1215,15 @@
       this.currentView = null;
       showScreen(new GameView(questData, name).startLevel());
     }
+
     static showResults(status) {
       const scoreBoard = new StatsView(status);
       showScreen(scoreBoard.element);
       Loader.saveResults(status.currentRound, status.currentRound.name).
         then(() => Loader.loadResults(status.currentRound.name).
-        then((data) => scoreBoard.showScores(data)).
-        then(state.reset()).
-        catch(Application.showError));
+          then((data) => scoreBoard.showScores(data)).
+          then(GameModel$1.reset()).
+          catch(Application.showError));
     }
 
     static showError(error) {
